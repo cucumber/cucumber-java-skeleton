@@ -4,7 +4,7 @@ This is the simplest possible build script setup for Cucumber using Java.
 There is nothing fancy like a webapp or browser testing. All this does is to show you how
 to install and run Cucumber!
 
-### Get the code:
+### Get the code
 
 Git:
 
@@ -18,7 +18,7 @@ Subversion:
 
 Or simply [download](https://github.com/cucumber/cucumber-java-skeleton/releases) a zip or tarball.
 
-### Maven
+### Use Maven
 
 Open a command window and run:
 
@@ -27,7 +27,7 @@ Open a command window and run:
 This runs Cucumber features using Cucumber's JUnit runner. The `@RunWith(Cucumber.class)` annotation on the `RunCukesTest`
 class tells JUnit to kick off Cucumber.
 
-### Ant
+### Use Ant
 
 Open a command window and run:
 
