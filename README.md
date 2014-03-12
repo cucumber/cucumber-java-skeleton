@@ -1,24 +1,40 @@
 ## Cucumber-Java Skeleton
 
-This is the simplest possible setup for Cucumber-JVM using Java.
+This is the simplest possible build script setup for Cucumber using Java.
+There is nothing fancy like a webapp or browser testing. All this does is to show you how
+to install and run Cucumber!
+
+### Get the code:
+
+Git:
+
+    git clone https://github.com/cucumber/cucumber-java-skeleton.git
+    cd cucumber-java-skeleton
+
+Subversion:
+
+    svn checkout https://github.com/cucumber/cucumber-java-skeleton
+    cd cucumber-java-skeleton
+
+Or simply [download](https://github.com/cucumber/cucumber-java-skeleton/releases) a zip or tarball.
 
 ### Maven
 
-Simply run:
+Open a command window and run:
 
     mvn test
 
-This runs Cucumber features using the JUnit runner. The `@RunWith(Cucumber.class)` annotation on the `RunCukesTest` junit class
-kicks off Cucumber.
+This runs Cucumber features using Cucumber's JUnit runner. The `@RunWith(Cucumber.class)` annotation on the `RunCukesTest`
+class tells JUnit to kick off Cucumber.
 
 ### Ant
 
-Simply run:
+Open a command window and run:
 
     ant download
     ant runcukes
 
-This runs Cucumber features using the Command Line Interface (CLI) runner. Note that the `RunCukesTest` junit class is not used at all.
+This runs Cucumber features using Cucumber's Command Line Interface (CLI) runner. Note that the `RunCukesTest` junit class is not used at all.
 If you remove it (and the `cucumber-junit` jar dependency), it will run just the same.
 
 #### Overriding options
