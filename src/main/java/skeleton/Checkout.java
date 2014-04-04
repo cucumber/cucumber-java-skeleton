@@ -4,23 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Checkout {
-    private final Map<String,Integer> productPrices = new HashMap<String, Integer>();
+    private Map<String,Integer> productPrices = new HashMap<String, Integer>();
     private int total = 0;
 
-    public void setPriceOfEspresso(int priceOfEspresso) {
-        productPrices.put("espresso", priceOfEspresso);
+    public void setProducts(Map<String, Integer> products) {
+        this.productPrices = products;
     }
 
-    public void setPriceOfCroissant(int priceOfCroissant) {
-        productPrices.put("croissant", priceOfCroissant);
-    }
-
-    public void setQuantityOfEspresso(int quantityOfEspresso) {
-        total += quantityOfEspresso * productPrices.get("espresso");
-    }
-
-    public void setQuantityOfCroissant(int quantityOfCroissant) {
-        total += quantityOfCroissant * productPrices.get("croissant");
+    public void setQuantity(int quantityOfCroissant, String product) {
+        total += quantityOfCroissant * productPrices.get(product);
     }
 
     public int getTotal() {
