@@ -5,6 +5,7 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
+//@CucumberOptions(monochrome = true, tags = "@focus")
 @CucumberOptions(monochrome = true)
 public class RunCukesTest {
 }
