@@ -59,6 +59,17 @@ Let's look at some things you can do with `cucumber.options`. Try this:
 
 That should list all the available options.
 
+*IMPORTANT*
+
+When you override options with `-Dcucumber.options`, you will completely override whatever options are hard-coded in
+your `@CucumberOptions` or in the script calling `cucumber.api.cli.Main`. There is one exception to this rule, and that
+is the `--format` option. This will not _override_, but _add_ a formatter. The reason for this is to make it easier
+for 3rd party tools (such as Cucumber Pro) to automatically install new formatters by appending arguments to a `cucumber.properties`
+file.
+
+You can read more about how this works on the [Cucumber-JVM Formatter for Cucumber Pro](https://github.com/cucumber-ltd/cucumber-pro-jvm)
+page.
+
 #### Run a subset of Features or Scenarios
 
 Specify a particular scenario by *line* (and use the pretty format)
@@ -74,6 +85,11 @@ You can also specify what to run by *tag*:
 
     -Dcucumber.options="--tags @bar --format pretty"
 
+#### Running only the scenarios that failed in the previous run
+
+    -Dcucumber.options="@target/rerun.txt"
+
+This works as long as you have the `rerun` formatter enabled.
 
 #### Specify a different formatter:
 
