@@ -24,7 +24,7 @@
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-pro</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.8</version>
             <scope>test</scope>
         </dependency>
         <dependency>
