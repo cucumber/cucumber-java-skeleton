@@ -18,6 +18,19 @@ Subversion:
 
 Or simply [download](https://github.com/cucumber/cucumber-java-skeleton/releases) a zip or tarball.
 
+### Use Gradle
+
+Open a command window and run:
+
+    ./gradlew
+
+or, for windows:
+
+    ./gradlew.bat
+
+
+Like the maven build, this runs Cucumber features using Cucumber's JUnit runner, and generates pretty reports.
+
 ### Use Maven
 
 Open a command window and run:

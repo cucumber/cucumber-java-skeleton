@@ -1,0 +1,29 @@
+apply plugin: 'java'
+
+group       = 'cucumber'
+version     = '0.0.1'
+description = 'Cucumber-Java Skeleton'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+defaultTasks 'clean', 'check'
+
+ext {
+  cucumberJavaVersion  = '1.1.8'
+  cucumberJunitVersion = '1.1.8'
+  junitVersion         = '4.11'
+  cucumberProVersion   = '1.0.10'
+}
+
+repositories {
+  maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+  testCompile "info.cukes:cucumber-java:${cucumberJavaVersion}"
+  testCompile "info.cukes:cucumber-junit:${cucumberJunitVersion}"
+  testCompile "junit:junit:${junitVersion}"
+  testCompile "info.cukes:cucumber-pro:${cucumberProVersion}"
+}
+
