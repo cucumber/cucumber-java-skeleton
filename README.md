@@ -22,12 +22,7 @@ Or simply [download](https://github.com/cucumber/cucumber-java-skeleton/releases
 
 Open a command window and run:
 
-    ./gradlew
-
-or, for windows:
-
-    ./gradlew.bat
-
+    gradle
 
 Like the maven build, this runs Cucumber features using Cucumber's JUnit runner, and generates pretty reports.
 
