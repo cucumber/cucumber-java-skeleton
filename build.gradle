@@ -10,19 +10,18 @@ targetCompatibility = 1.6
 defaultTasks 'clean', 'check'
 
 ext {
-  cucumberJavaVersion  = '1.1.8'
-  cucumberJunitVersion = '1.1.8'
-  junitVersion         = '4.11'
-  cucumberProVersion   = '1.0.10'
+  cucumberVersion    = '1.1.8'
+  junitVersion       = '4.11'
+  cucumberProVersion = '1.0.10'
 }
 
 repositories {
-  maven { url "http://repo.maven.apache.org/maven2" }
+  mavenCentral()
 }
 
 dependencies {
-  testCompile "info.cukes:cucumber-java:${cucumberJavaVersion}"
-  testCompile "info.cukes:cucumber-junit:${cucumberJunitVersion}"
+  testCompile "info.cukes:cucumber-java:${cucumberVersion}"
+  testCompile "info.cukes:cucumber-junit:${cucumberVersion}"
   testCompile "junit:junit:${junitVersion}"
   testCompile "info.cukes:cucumber-pro:${cucumberProVersion}"
 }
