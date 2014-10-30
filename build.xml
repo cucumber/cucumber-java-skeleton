@@ -1,11 +1,9 @@
 <project name="java-helloworld" basedir="." default="runcukes">
-    <property name="repo" value="http://search.maven.org/remotecontent?filepath="/>
+    <property name="repo" value="https://repo1.maven.org/maven2"/>
 
     <!-- To figure out compatible combinations of versions, you should examine dependencies in the Maven POM files -->
-    <property name="cucumber-jvm.version" value="1.1.8"/>
+    <property name="cucumber-jvm.version" value="1.2.0"/>
     <property name="cucumber-jvm-deps.version" value="1.0.3"/>
-    <property name="cucumber-pro.version" value="1.0.9"/>
-    <property name="tyrus.version" value="1.7"/>
     <property name="gherkin.version" value="2.12.2"/>
     <property name="cucumber-html.version" value="0.2.3"/>
     <property name="junit.version" value="4.11"/>
@@ -27,17 +25,6 @@
              dest="${jars}/cucumber-html-${cucumber-html.version}.jar"/>
         <get src="${repo}/junit/junit/${junit.version}/junit-${junit.version}.jar"
              dest="${jars}/junit-${junit.version}.jar"/>
-
-        <!--
-        You can safely remove the following jars if you're not publishing results to Cucumber Pro.
-        In that case you should also comment out the line with CucumberProFormatter in cucumber.properties
-        -->
-        <get src="${repo}/info/cukes/cucumber-pro/${cucumber-pro.version}/cucumber-pro-${cucumber-pro.version}.jar"
-             dest="${jars}/cucumber-pro-${cucumber-pro.version}.jar"/>
-        <get src="${repo}/org/glassfish/tyrus/tyrus-client/${tyrus.version}/tyrus-client-${tyrus.version}.jar"
-             dest="${jars}/tyrus-client-${tyrus.version}.jar"/>
-        <get src="${repo}/org/glassfish/tyrus/tyrus-core/${tyrus.version}/tyrus-core-${tyrus.version}.jar"
-             dest="${jars}/tyrus-core-${tyrus.version}.jar"/>
     </target>
 
     <target name="classpath">
