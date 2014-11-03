@@ -1,4 +1,1 @@
 language: java
-env:
-  global:
-  - secure: Le9LyzLoVIjc9RWYJPYQAAmiZrB+Jh6/rSai6VjqGuml0TUIKLLg4zAJ3vkMXg4Bx2/PqrZLyMcprpHTp82ESj37g+Y7/nXq+WgX0l/alnEoRZPhNmEOVGH64jzjhbTxzhyr/6rL7KZaiaCOS5njmTgfrSVqglMaQHJefhI4oMc=
