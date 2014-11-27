@@ -40,7 +40,7 @@ If you remove it (and the `cucumber-junit` jar dependency), it will run just the
 
 ## Overriding options
 
-The Cucumber runtime parses command line options to know what features to run, where the glue code lives, what formatters to use etc.
+The Cucumber runtime parses command line options to know what features to run, where the glue code lives, what plugins to use etc.
 When you use the JUnit runner, these options are generated from the `@CucumberOptions` annotation on your test.
 
 Sometimes it can be useful to override these options without changing or recompiling the JUnit class. This can be done with the
@@ -70,7 +70,7 @@ file.
 
 ### Run a subset of Features or Scenarios
 
-Specify a particular scenario by *line* (and use the pretty format)
+Specify a particular scenario by *line* (and use the pretty plugin, which prints the scenario back)
 
     -Dcucumber.options="classpath:skeleton/belly.feature:4 --plugin pretty"
 
