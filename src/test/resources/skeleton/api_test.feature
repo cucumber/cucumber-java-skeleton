@@ -1,5 +1,6 @@
 Feature: test through API: java.lang.String
   
+  //By default this scenario is intended to fail
   Scenario: charAt
     Given I have a string "abc"
     Then char at 1 is 'a'

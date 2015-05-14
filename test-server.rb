@@ -73,6 +73,10 @@ get '/users' do
   end
 end
 
+delete '/users' do
+  $users = []
+end
+
 post '/users/add' do
   headers \
     'content-type' => 'application/json;charset=utf-8'
