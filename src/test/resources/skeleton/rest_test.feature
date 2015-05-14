@@ -4,7 +4,6 @@ Feature: test through Rest
     When I plus '11' and '12'
     Then sum must be 23
 
-  @my
   Scenario: get users
     Given I have no users
     Then there are 0 users

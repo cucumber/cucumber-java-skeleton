@@ -29,6 +29,56 @@ class User
 
 end
 
+get '/web/home' do
+  return html_response <<-eod
+    <h1>Hi!</h1>
+    <a href='/web/adduser'>add user</a>
+    <a href='/web/listusers'>list users</a>
+    <a href='/web/about'>about</a>
+eod
+end
+
+get '/web/adduser' do
+  return html_response <<-eod
+    <h1>#{request.path_info}</h1>
+    <form method='post' action='/users/add2'>
+      <table>
+        <tr><th>email</th><td><input name='email' type='text'/></td></tr>
+        <tr><th>First Name:</th><td><input name='firstName' type='text'/></td></tr>
+        <tr><th>Last Name:</th><td><input name='lastName' type='text'/></td></tr>
+      </table>
+      <input type='submit'/>
+    </form>
+eod
+end
+
+get '/web/about' do
+  return html_response <<-eod
+    <script>
+      var tc1 = "Back to Home page";
+      var tc2 = "Press me if you can";
+      function btnClicked(){
+        var div1 = document.getElementById("div1");
+        div1.textContent = "Wow! You have clicked me!";
+      }
+      function btnMouseOver(){
+        var btn1 = document.getElementById("btn1");
+        btn1.value = tc2;
+        btn1.disabled = true;
+      }
+      function versionOnMouseOver(){
+        var btn1 = document.getElementById("btn1");
+        btn1.disabled = false;
+        btn1.value = tc1;
+      }
+    </script>
+    <h1>#{request.path_info}</h1>
+    <div id='div1'>Expected text: Simplest App to test from Cucumber</div>
+    <div id='version' onmouseover='versionOnMouseOver()'>Version 1.0</div>
+    <input id='btn1' type='button' onclick='btnClicked()' value='Back to Home page' onmouseover='btnMouseOver()'>
+eod
+end
+
 get '/math/plus' do
   headers \
     'content-type' => 'application/json;charset=utf-8'
@@ -38,7 +88,7 @@ get '/math/plus' do
     json_response(result: a+b)
   rescue => exc
     status 422
-    return json_error("Something went wrong: #{exc}")
+    return json_error("something went wrong: #{exc}")
   end
 end
 
@@ -51,7 +101,7 @@ get '/math/divide' do
     json_response(result: a/b)
   rescue => exc
     status 422
-    return json_error("Something went wrong: #{exc}")
+    return json_error("something went wrong: #{exc}")
   end
 end
 
@@ -75,6 +125,10 @@ end
 
 delete '/users' do
   $users = []
+end
+
+post '/users/add2' do
+  STDERR.puts params[:email]
 end
 
 post '/users/add' do
@@ -140,5 +194,9 @@ def json_error(msg, usage=nil)
   h[:error] = msg
   h[:usage] = usage unless usage.nil?
   return h.to_json
+end
+
+def html_response(body)
+  return "<html><body>\n#{body}</body></html>"
 end
 
