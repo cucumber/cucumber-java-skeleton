@@ -1,7 +1,13 @@
 package skeleton;
 
 public class Belly {
-    public void eat(int cukes) {
+    private int cukes = 0;
+    
+    public void eat(int moreCukes) {
+        this.cukes += moreCukes;
+    }
 
+    public int getCukes() {
+        return cukes;
     }
 }
