@@ -81,6 +81,7 @@ post '/users/add' do
   headers \
     'content-type' => 'application/json;charset=utf-8'
   data = JSON.parse request.body.read
+  STDERR.puts "BODY: #{data}"
   first_name = data['firstName']
   last_name = data['lastName']
   email = data['email']
