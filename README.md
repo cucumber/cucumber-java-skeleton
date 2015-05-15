@@ -1,5 +1,8 @@
 *Note:* **Project cloned in educational purposes. To start working with cucumber-jvm please use original project: https://github.com/cucumber/cucumber-java-skeleton**
 
+Algorithm for practice
+https://docs.google.com/document/d/1nmWfxEbWtLkJF-_I4UI0KPUF7t9QFuMYLatRcoailDg/edit
+
 # Cucumber-Java Skeleton
 
 This is the simplest possible build script setup for Cucumber using Java.
@@ -10,15 +13,15 @@ to install and run Cucumber!
 
 Git:
 
-    git clone https://github.com/cucumber/cucumber-java-skeleton.git
+    git clone https://github.com/budabum/cucumber-java-skeleton.git
     cd cucumber-java-skeleton
 
 Subversion:
 
-    svn checkout https://github.com/cucumber/cucumber-java-skeleton
+    svn checkout https://github.com/budabum/cucumber-java-skeleton
     cd cucumber-java-skeleton
 
-Or simply [download](https://github.com/cucumber/cucumber-java-skeleton/releases) the latest
+Or simply [download](https://github.com/budabum/cucumber-java-skeleton/releases) the latest
 `vX.Y.Z` zip or tarball.
 
 ## Use Maven
