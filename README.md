@@ -10,15 +10,15 @@ to install and run Cucumber!
 
 Git:
 
-    git clone https://github.com/cucumber/cucumber-java-skeleton.git
+    git clone https://github.com/budabum/cucumber-java-skeleton.git
     cd cucumber-java-skeleton
 
 Subversion:
 
-    svn checkout https://github.com/cucumber/cucumber-java-skeleton
+    svn checkout https://github.com/budabum/cucumber-java-skeleton
     cd cucumber-java-skeleton
 
-Or simply [download](https://github.com/cucumber/cucumber-java-skeleton/releases) the latest
+Or simply [download](https://github.com/budabum/cucumber-java-skeleton/releases) the latest
 `vX.Y.Z` zip or tarball.
 
 ## Use Maven
