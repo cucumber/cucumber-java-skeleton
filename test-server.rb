@@ -7,7 +7,7 @@ set :port, 9944
 $users = []
 
 class User
-  attr_reader :email
+  attr_reader :email, :first_name, :last_name
   def initialize(email, fn, ln)
     @email = email
     @first_name = fn
@@ -49,6 +49,20 @@ get '/web/adduser' do
       </table>
       <input type='submit'/>
     </form>
+eod
+end
+
+get '/web/listusers' do
+  user_lines = ""
+  $users.each do |u|
+    user_lines += "<tr><td>#{u.email}</td><td>#{u.first_name}</td><td>#{u.last_name}</td></tr>\n"
+  end
+  return html_response <<-eod
+    <h1>#{request.path_info}</h1>
+    <table>
+      <tr><th>email</th><th>First Name</th><th>Last Name</th></tr>
+      #{user_lines}
+    </table>
 eod
 end
 
