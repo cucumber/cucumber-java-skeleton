@@ -1,5 +1,8 @@
 *Note:* **Project cloned in educational purposes. To start working with cucumber-jvm please use original project: https://github.com/cucumber/cucumber-java-skeleton**
 
+Algorithm for practice
+https://docs.google.com/document/d/1nmWfxEbWtLkJF-_I4UI0KPUF7t9QFuMYLatRcoailDg/edit
+
 # Cucumber-Java Skeleton
 
 This is the simplest possible build script setup for Cucumber using Java.
