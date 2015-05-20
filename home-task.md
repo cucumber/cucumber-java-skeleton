@@ -1,13 +1,15 @@
 ## Preparing
 
-1. You should have GitHub account to do home task
+1. You should have GitHub account to do home task and ssh ceritficate should be uploaded to allow you to push on GitHub. Check it here: https://github.com/settings/ssh
 
 2. Clone latest version of test project we were workin in class
   ```
-  git clone https://github.com/budabum/cucumber-java-skeleton 
-  cd cucumber-java-skeleton
+  git clone git@github.com:budabum/cucumber-java-skeleton.git bdd-hometask
+  cd bdd-hometask
   git checkout inclass
   ```
+  
+  **Note:** you have to clone by git url, not https. Otherwise you want be able to push.
   
   Now you have the latest version we done in class.
   
