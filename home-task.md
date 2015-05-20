@@ -22,7 +22,7 @@
   
   Do your home task in this branch. Commit often. Push when ready or you want to save the sate on the server.
   
-  **Send me notification (create pull request + skype) when you home task is ready.**
+  **Send me notification in skype after creating pull request (diff with branch inclass) when you home task is ready.**
   
   Note: If you get 403 error on attempt to push - let me know - I'll add you into colobarator's list.
 
