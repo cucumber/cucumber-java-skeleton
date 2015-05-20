@@ -40,38 +40,43 @@
   git checkout tag/step1
   ```
   
-open file api_test.feature
-Run it and then RunCukeTests
-Insert features and tags to run only needed scenarios
-Replace
-@CucumberOptions(plugin = {"pretty"})
-with
-@CucumberOptions(plugin = {"pretty"}, features = {"src/test/resources/skeleton/api_test.feature"})
-Then add tag ‘@my’ to one of scenarios and into runner
-@CucumberOptions(plugin = {"pretty"}, features = {"src/test/resources/skeleton/api_test.feature"}, tags=”@my”)
-TASK: crate a couple more tests for one of these methods (see StringSteps)
-Use http://docs.oracle.com/javase/7/docs/api/java/lang/String.html as requirements
-Running test server
-git checkout tag/step2
-open new terminal or tab in terminal or use screen command line utility
-run test server
-ruby test-server.rb
-Should start. Go to http://localhost:9944/ to check.
-To install it in your environment do the following (already done in class)
-Install ruby 1.9.3+
-on ubuntu: sudo apt-get install ruby
-for other OS use ruby documentation https://www.ruby-lang.org/en/downloads/ or better use http://rvm.io/ 
-Install ‘sinatra’ web server
-on linux: sudo gem install sinatra
-on other OS, e.g. Windows:  gem install sinatra
-Shutdown test server (ctrl+c in its console)
-Evolution 3. Rest testing.
-git checkout tag/step3
-run test server
-look at file rest_test.feature - you can run it but it’ll not work (why???)
-Set tags and run RunCukeTests - will work
-Let’s look at steps: RestSteps
-TASK: Create one more test for route /plus
+  3.1.1. If it does not work run *git checkout -- .*
+  
+3.2. Open file api_test.feature
+
+3.3. Run it and then RunCukeTests
+
+3.4. Insert features and tags to run only needed scenarios
+  ```
+  Replace
+    @CucumberOptions(plugin = {"pretty"})
+  with
+    @CucumberOptions(plugin = {"pretty"}, features = {"src/test/resources/skeleton/api_test.feature"})
+  
+  Then add tag ‘@my’ to one of scenarios and into runner
+    @CucumberOptions(plugin = {"pretty"}, features = {"src/test/resources/skeleton/api_test.feature"}, tags=”@my”)
+  ```
+
+3.5.  **TASK:** Create a couple more tests for one of these methods (see StringSteps)
+          Use http://docs.oracle.com/javase/7/docs/api/java/lang/String.html as requirements
+          
+## 4. Running test server
+  Go to https://github.com/budabum/eduke-server and follow instructions
+  
+  Run test server and keep it running.
+
+## 5. Evolution 3. Rest testing.
+
+5.1. Get new version from git
+  ```
+  git checkout tag/step3
+  ```
+  
+5.2. Look at file rest_test.feature - you can run it or better run RunCukeTests
+
+5.3. Let’s look at steps: RestSteps
+
+5.4. TASK: Create one more test for route /plus
 http://localhost:9944/math/plus?a=2&b=3 -url spec for instance
 TASK*: Create one more test for route /divide
 http://localhost:9944/math/divide?a=9&b=3 -url spec for instance
