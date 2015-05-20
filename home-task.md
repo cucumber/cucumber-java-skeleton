@@ -1,7 +1,6 @@
 ## Preparing
 
 1. You should have GitHub account to do home task!
-If you get 403 error on attempt to push - let me know - I'll add you into colobarator's list.
 
 2. ssh ceritficate should be uploaded to allow you to push on GitHub. Check it here: https://github.com/settings/ssh
 3. Clone latest version of test project we were workin in class
@@ -11,7 +10,7 @@ If you get 403 error on attempt to push - let me know - I'll add you into coloba
   git checkout inclass
   ```
   
-  **Note:** you have to clone by git url, not https. Otherwise you want be able to push.
+  **Note:** you have to clone by git url, not https. Otherwise you won't be able to push.
   
   Now you have the latest version we done in class.
   
@@ -24,6 +23,8 @@ If you get 403 error on attempt to push - let me know - I'll add you into coloba
   Do your home task in this branch. Commit often. Push when ready or you want to save the sate on the server.
   
   **Send me notification (create pull request + skype) when you home task is ready.**
+  
+  Note: If you get 403 error on attempt to push - let me know - I'll add you into colobarator's list.
 
 ## API Testing
 
