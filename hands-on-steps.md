@@ -94,20 +94,22 @@
 
 6.4. Run in postman
 > GET http://localhost:9944/users 
-
-> POST http://localhost:9944/users/add 
+<hr/>
+> POST http://localhost:9944/users/add
+>
 > Content-Type: application/json
+>
 > {"email":"user11@email.com", "firstName":"autotest", "lastName":"user"}
-
+<hr/>
 > GET http://localhost:9944/users?email=user12@email.com 
-
+<hr/>
 > DELETE http://localhost:9944/users 
 
 6.5. Look at file rest_test.feature - new scenario - get users with data table
 
 6.6. Look at file RestSteps - it has changed.
 
-6.7. *TASK:* create a couple more tests for *delete /users* and *post /users/add* routes
+6.7. **TASK:** create a couple more tests for *delete /users* and *post /users/add* routes
 
 ## 7. Evolution 5. Web testing
 
@@ -126,7 +128,7 @@
 
 7.6. Run test again - should pass
 
-7.7. *TASK:* Create one more test for */web/adduser* page
+7.7. **TASK:** Create one more test for */web/adduser* page
 
 
 ## Additional links
