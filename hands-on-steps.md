@@ -76,40 +76,60 @@
 
 5.3. Let’s look at steps: RestSteps
 
-5.4. TASK: Create one more test for route /plus
-http://localhost:9944/math/plus?a=2&b=3 -url spec for instance
-TASK*: Create one more test for route /divide
-http://localhost:9944/math/divide?a=9&b=3 -url spec for instance
-Evolution 4. Rest testing continued.
-git checkout tag/step4
-restart test server
-update maven dependencies in idea (if autoupdate is off)
-let’s install postman (plugin for chrome/chromium)
-run in postman
-GET http://localhost:9944/users 
-POST http://localhost:9944/users/add 
-Content-Type: application/json
-{"email":"user11@email.com", "firstName":"autotest", "lastName":"user"}
-GET http://localhost:9944/users?email=user12@email.com 
-DELETE http://localhost:9944/users 
-look at file rest_test.feature - new scenario - get users with data table
-look at file RestSteps - it has changed.
-TASK: create a couple more tests for /users routes
-Evolution 5. Web testing
-git checkout tag/step5
-restart test server
-update maven dependencies in dea (if autoupdate is off)
-look at file selenium_test.feature - run it (expected to fail)
-look at SeleniumSteps.
-Uncomment lines 74,75 and comment 73.
-run test again - should pass
-TASK: create one more test for any page
+5.4. **TASK:** Create one more test for route /plus
+> http://localhost:9944/math/plus?a=2&b=3 - url spec for instance
+5.5. *TASK:* Create one more test for route /divide
+> http://localhost:9944/math/divide?a=9&b=3 -url spec for instance
+
+## 6. Evolution 4. Rest testing continued.
+
+6.1. Get new version
+  ```
+  git checkout tag/step4
+  ```
+  
+6.2. Update maven dependencies in idea (if autoupdate is off)
+
+6.3. Let’s install postman (plugin for chrome/chromium)
+
+6.4. Run in postman
+> GET http://localhost:9944/users 
+
+> POST http://localhost:9944/users/add 
+> Content-Type: application/json
+> {"email":"user11@email.com", "firstName":"autotest", "lastName":"user"}
+
+> GET http://localhost:9944/users?email=user12@email.com 
+
+> DELETE http://localhost:9944/users 
+
+6.5. Look at file rest_test.feature - new scenario - get users with data table
+
+6.6. Look at file RestSteps - it has changed.
+
+6.7. *TASK:* create a couple more tests for *delete /users* and *post /users/add* routes
+
+## 7. Evolution 5. Web testing
+
+7.1. Get new version
+  ```
+  git checkout tag/step5
+  ```
+  
+7.2. Update maven dependencies in dea (if autoupdate is off)
+
+7.3. Look at file selenium_test.feature - run it (expected to fail)
+
+7.4. Look at SeleniumSteps.
+
+7.5. Uncomment lines 74,75 and comment 73.
+
+7.6. Run test again - should pass
+
+7.7. *TASK:* Create one more test for */web/adduser* page
 
 
-
-
-
-
+## Additional links
 
 Rest testing
 ---------------
