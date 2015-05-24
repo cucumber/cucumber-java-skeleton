@@ -12,6 +12,7 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import sun.misc.IOUtils;
 
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Alexey Lyanguzov
@@ -46,7 +48,7 @@ public class RestSteps {
 
     @Given("^I have no users$")
     public void i_have_no_users() {
-        doRequest(Unirest.delete(usersBaseUrl));
+        i_delete_all_users();
     }
 
     @When("^I add users$")
@@ -60,11 +62,52 @@ public class RestSteps {
         }
     }
 
+    @When("I delete user (.*?)$")
+    public void i_delete_user(String email) {
+        doRequest(
+                Unirest.delete(usersBaseUrl).queryString("email", email)
+        );
+
+    }
+
+    @When("I delete all users")
+    public void i_delete_all_users() {
+        doRequest(Unirest.delete(usersBaseUrl));
+    }
+
+    @When("I edit user (.*?) with (.*?) and (.*?)$")
+    public void i_edit_user(String email, String newFirstname, String newLastname) {
+
+        doRequest(
+                Unirest.post(usersBaseUrl + "/edit")
+                        .queryString("email", email)
+                        .body("{\"firstName\":\"" + newFirstname + "\",\"lastName\":\"" + newLastname + "\"}")
+                        .getHttpRequest()
+        );
+
+    }
+
     @Then("^there are (\\d+) users$")
     public void there_are_users(int expectedUsersCount) {
         doRequest(Unirest.get(usersBaseUrl));
         int actualUsersCount = response.getBody().getObject().getJSONArray("users").length();
         assertEquals("BBB!", expectedUsersCount, actualUsersCount);
+    }
+
+    @Then("User (.*?) has firstname (.*?) and lastname (.*?)$")
+    public void user_has_credentials(String email, String firstname, String lastname) {
+        doRequest(Unirest.get(usersBaseUrl));
+        JSONArray users = response.getBody().getObject().getJSONArray("users");
+        int index;
+        for(index = 0; index < users.length(); index++) {
+            JSONObject userRecord = users.getJSONObject(index);
+            if (userRecord.getString("email").equals(email)) break;
+
+        }
+        String actualFirstname = users.getJSONObject(index).getString("first_name");
+        String actualLastname = users.getJSONObject(index).getString("last_name");
+
+        assertTrue(actualFirstname.equals(firstname) && actualLastname.equals(lastname));
     }
     
     private void doRequest(HttpRequest request){
