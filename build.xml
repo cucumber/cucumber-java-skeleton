@@ -2,11 +2,11 @@
     <property name="repo" value="https://repo1.maven.org/maven2"/>
 
     <!-- To figure out compatible combinations of versions, you should examine dependencies in the Maven POM files -->
-    <property name="cucumber-jvm.version" value="1.2.0"/>
-    <property name="cucumber-jvm-deps.version" value="1.0.3"/>
+    <property name="cucumber-jvm.version" value="1.2.4"/>
+    <property name="cucumber-jvm-deps.version" value="1.0.5"/>
     <property name="gherkin.version" value="2.12.2"/>
     <property name="cucumber-html.version" value="0.2.3"/>
-    <property name="junit.version" value="4.11"/>
+    <property name="junit.version" value="4.12"/>
     <property name="jars" value="lib"/>
 
     <target name="download">
@@ -52,11 +52,11 @@
         <mkdir dir="target/cucumber-junit-report"/>
         <java classname="cucumber.api.cli.Main" fork="true" failonerror="false" resultproperty="cucumber.exitstatus">
             <classpath refid="classpath"/>
-            <arg value="--format"/>
+            <arg value="--plugin"/>
             <arg value="junit:target/cucumber-junit-report.xml"/>
-            <arg value="--format"/>
+            <arg value="--plugin"/>
             <arg value="pretty"/>
-            <arg value="--format"/>
+            <arg value="--plugin"/>
             <arg value="html:target/cucumber-html-report"/>
             <arg value="--glue"/>
             <arg value="skeleton"/>
