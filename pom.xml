@@ -8,25 +8,32 @@
     <packaging>jar</packaging>
     <name>Cucumber-Java Skeleton</name>
 
+    <properties>
+        <java.version>1.7</java.version>
+        <junit.version>4.12</junit.version>
+        <cucumber.version>1.2.2</cucumber.version>
+        <maven.compiler.version>3.3</maven.compiler.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>1.2.2</version>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>1.2.2</version>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -36,11 +43,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>${maven.compiler.version}</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <compilerArgument>-Werror</compilerArgument>
                 </configuration>
             </plugin>
