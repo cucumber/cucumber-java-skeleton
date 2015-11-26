@@ -15,11 +15,10 @@ Git:
 
 Subversion:
 
-    svn checkout https://github.com/cucumber/cucumber-java-skeleton
+    svn checkout https://github.com/cucumber/cucumber-java-skeleton/trunk cucumber-java-skeleton
     cd cucumber-java-skeleton
 
-Or simply [download](https://github.com/cucumber/cucumber-java-skeleton/releases) the latest
-`vX.Y.Z` zip or tarball.
+Or simply [download a zip](https://github.com/cucumber/cucumber-java-skeleton/archive/master.zip) file.
 
 ## Use Maven
 
