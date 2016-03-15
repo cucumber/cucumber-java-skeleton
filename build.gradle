@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+    testCompile 'info.cukes:cucumber-junit:1.2.0'
+    testCompile 'info.cukes:cucumber-java:1.2.0'
+
+}
+
+test {
+    systemProperties = System.properties
+    testLogging.showStandardStreams = true
+}
