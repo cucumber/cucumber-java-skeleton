@@ -2,3 +2,5 @@
 *.iml
 /target/
 /lib
+/build/
+/.gradle/
