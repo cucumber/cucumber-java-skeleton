@@ -41,6 +41,15 @@ Open a command window and run:
 This runs Cucumber features using Cucumber's Command Line Interface (CLI) runner. Note that the `RunCukesTest` junit class is not used at all.
 If you remove it (and the `cucumber-junit` jar dependency), it will run just the same.
 
+## Use Gradle
+
+Open a command window and run:
+
+    gradlew test
+
+This runs Cucumber features using Cucumber's JUnit runner. The `@RunWith(Cucumber.class)` annotation on the `RunCukesTest`
+class tells JUnit to kick off Cucumber.
+
 ## Overriding options
 
 The Cucumber runtime parses command line options to know what features to run, where the glue code lives, what plugins to use etc.
@@ -56,6 +65,10 @@ Using Maven:
 Using Ant:
 
     JAVA_OPTIONS='-Dcucumber.options="..."' ant runcukes
+
+Using Gradle:
+
+    gradlew -Dcucumber.options="..." test
 
 Let's look at some things you can do with `cucumber.options`. Try this:
 
