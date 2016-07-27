@@ -1,24 +1,19 @@
 package selenium;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
-import static selenium.TodoUtil.addTodo;
-import static selenium.TodoUtil.clearDoneTodos;
-import static selenium.TodoUtil.deleteTodo;
-import static selenium.TodoUtil.isDone;
-import static selenium.TodoUtil.markTodoDone;
-import static selenium.TodoUtil.todoAt;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+import static selenium.TodoUtil.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import support.Browser;
 
 public class TodoTest {
 
-  WebDriver driver = new ChromeDriver();
+  WebDriver driver = Browser.launch();
 
   @Before
   public void setup() {

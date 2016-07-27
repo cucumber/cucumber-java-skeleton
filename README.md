@@ -1,25 +1,31 @@
-# Cucumber-Java Skeleton
+# java-cucumber-example
 
-This is the simplest possible build script setup for Cucumber using Java.
-There is nothing fancy like a webapp or browser testing. All this does is to show you how
-to install and run Cucumber!
+A sample project for Cucumber and/or Selenium tests.
 
-There is a single feature file with one scenario. The scenario has three steps, two of them pending. See if you can make them all pass!
+# Instructions
 
-## Get the code
+Clone the repo:
 
 Git:
+```
+$ git clone git@github.com:testdouble/java-cucumber-example.git
+```
 
-    git clone https://github.com/cucumber/cucumber-java-skeleton.git
-    cd cucumber-java-skeleton
+Svn:
+```
+$ svn co https://github.com/testdouble/java-cucumber-example
+```
 
-Subversion:
+Or download a ZIP of master [manually](https://github.com/testdouble/java-cucumber-example/archive/master.zip) and expand the contents someplace on your system
 
-    svn checkout https://github.com/cucumber/cucumber-java-skeleton
-    cd cucumber-java-skeleton
+## Prerequisites
 
-Or simply [download](https://github.com/cucumber/cucumber-java-skeleton/releases) the latest
-`vX.Y.Z` zip or tarball.
+In order to run browser tests, Selenium will need to be able to drive a browser
+installed to your system.
+
+(TODO after testing on Windows)
+
+## Verify installation
 
 ## Use Maven
 

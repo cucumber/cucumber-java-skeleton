@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import support.Browser;
+
 public class SimpleTest {
 
   @Test
@@ -13,7 +15,7 @@ public class SimpleTest {
     //http://www.seleniumhq.org/download/maven.jsp
     //https://code.google.com/p/selenium/wiki/GettingStarted
     
-    WebDriver driver = new ChromeDriver();
+    WebDriver driver = Browser.launch();
     driver.get("https://www.google.com");
     WebElement element = driver.findElement(By.name("q"));
     element.sendKeys("Cheese!");
