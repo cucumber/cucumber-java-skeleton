@@ -2,7 +2,7 @@
     <property name="repo" value="https://repo1.maven.org/maven2"/>
 
     <!-- To figure out compatible combinations of versions, you should examine dependencies in the Maven POM files -->
-    <property name="cucumber-jvm.version" value="1.2.4"/>
+    <property name="cucumber-jvm.version" value="1.2.5"/>
     <property name="cucumber-jvm-deps.version" value="1.0.5"/>
     <property name="gherkin.version" value="2.12.2"/>
     <property name="cucumber-html.version" value="0.2.3"/>
