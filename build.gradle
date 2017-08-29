@@ -1,13 +1,13 @@
 apply plugin: 'java'
 
 project.ext {
-    cucumberVersion = '1.2.5'
+    cucumberVersion = '2.0.0'
     junitVersion = '4.12'
 }
 
 dependencies {
-    testCompile 'info.cukes:cucumber-java:' + cucumberVersion
-    testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
+    testCompile 'io.cucumber:cucumber-java:' + cucumberVersion
+    testCompile 'io.cucumber:cucumber-junit:' + cucumberVersion
     testCompile 'junit:junit:' + junitVersion
 }
 
