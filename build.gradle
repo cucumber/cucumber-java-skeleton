@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 project.ext {
-    cucumberVersion = '2.2.0'
+    cucumberVersion = '2.3.1'
     junitVersion = '4.12'
 }
 
