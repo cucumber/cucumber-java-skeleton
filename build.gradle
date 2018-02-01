@@ -2,12 +2,14 @@ apply plugin: 'java'
 
 project.ext {
     cucumberVersion = '2.3.1'
+    cucumberProVersion = '2.0.4'
     junitVersion = '4.12'
 }
 
 dependencies {
     testCompile 'io.cucumber:cucumber-java:' + cucumberVersion
     testCompile 'io.cucumber:cucumber-junit:' + cucumberVersion
+    testCompile 'io.cucumber:pro-plugin:' + cucumberProVersion
     testCompile 'junit:junit:' + junitVersion
 }
 
@@ -19,3 +21,4 @@ test {
     testLogging.showStandardStreams = true
     systemProperties System.getProperties()
 }
+

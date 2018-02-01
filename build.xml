@@ -6,6 +6,7 @@
     <property name="cucumber-jvm-deps.version" value="1.0.6"/>
     <property name="gherkin.version" value="5.0.0"/>
     <property name="cucumber-html.version" value="0.2.6"/>
+    <property name="cucumber-pro.version" value="2.0.4"/>
     <property name="junit.version" value="4.12"/>
     <property name="jars" value="lib"/>
 
@@ -21,6 +22,8 @@
              dest="${jars}/cucumber-jvm-deps-${cucumber-jvm-deps.version}.jar"/>
         <get src="${repo}/io/cucumber/gherkin/${gherkin.version}/gherkin-${gherkin.version}.jar"
              dest="${jars}/gherkin-${gherkin.version}.jar"/>
+        <get src="${repo}/io/cucumber/pro-plugin/${cucumber-pro.version}/pro-plugin-${cucumber-pro.version}.jar"
+             dest="${jars}/cucumber-pro-${cucumber-pro.version}.jar"/>
         <get src="${repo}/info/cukes/cucumber-html/${cucumber-html.version}/cucumber-html-${cucumber-html.version}.jar"
              dest="${jars}/cucumber-html-${cucumber-html.version}.jar"/>
         <get src="${repo}/junit/junit/${junit.version}/junit-${junit.version}.jar"
@@ -58,6 +61,8 @@
             <arg value="pretty"/>
             <arg value="--plugin"/>
             <arg value="html:target/cucumber-html-report"/>
+            <arg value="--plugin"/>
+            <arg value="io.cucumber.pro.JsonReporter:all"/>
             <arg value="--glue"/>
             <arg value="skeleton"/>
             <arg value="src/test/resources"/>
