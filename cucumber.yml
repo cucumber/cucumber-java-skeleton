@@ -1,2 +1,3 @@
 cucumberpro:
+  logging: debug
   projectname: cucumber-java-skeleton
