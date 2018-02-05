@@ -40,5 +40,5 @@ cucumber {
 test {
     stepDefinitionRoots = ['skeleton']
     featureRoots = ['skeleton']
-    plugins = ['io.cucumber.pro.JsonReporter:full']
+    plugins = ['io.cucumber.pro.JsonReporter:full-gradle']
 }
