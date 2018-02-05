@@ -1,4 +1,18 @@
-apply plugin: 'java'
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.commercehub:gradle-cucumber-jvm-plugin:0.13"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'com.commercehub.cucumber-jvm' version '0.13'
+}
 
 project.ext {
     cucumberVersion = '2.3.1'
@@ -17,8 +31,14 @@ repositories {
     mavenCentral()
 }
 
-test {
-    testLogging.showStandardStreams = true
-    systemProperties System.getProperties()
+addCucumberSuite 'test'
+
+cucumber {
+    maxParallelForks = 3
 }
 
+test {
+    stepDefinitionRoots = ['skeleton']
+    featureRoots = ['skeleton']
+    plugins = ['io.cucumber.pro.JsonReporter:full']
+}
