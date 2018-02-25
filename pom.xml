@@ -9,7 +9,6 @@
     <name>Cucumber-Java Skeleton</name>
 
     <properties>
-        <java.version>1.7</java.version>
         <junit.version>4.12</junit.version>
         <cucumber.version>2.3.1</cucumber.version>
         <cucumber.pro.version>2.0.4</cucumber.pro.version>
@@ -54,8 +53,6 @@
                 <version>${maven.compiler.version}</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
                     <compilerArgument>-Werror</compilerArgument>
                 </configuration>
             </plugin>
