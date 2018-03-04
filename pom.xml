@@ -9,7 +9,7 @@
     <name>Cucumber-Java Skeleton</name>
 
     <properties>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <junit.version>4.12</junit.version>
         <cucumber.version>2.3.1</cucumber.version>
         <cucumber.pro.version>2.0.4</cucumber.pro.version>
