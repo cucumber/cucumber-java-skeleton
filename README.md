@@ -45,7 +45,7 @@ If you remove it (and the `cucumber-junit` jar dependency), it will run just the
 
 Open a command window and run:
 
-    gradlew test
+    gradlew test --info
 
 This runs Cucumber features using Cucumber's JUnit runner. The `@RunWith(Cucumber.class)` annotation on the `RunCukesTest`
 class tells JUnit to kick off Cucumber.
