@@ -1,4 +1,8 @@
 apply plugin: 'java'
+apply plugin: 'jacoco'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 project.ext {
     cucumberVersion = '2.4.0'
@@ -13,6 +17,15 @@ dependencies {
     testCompile 'junit:junit:' + junitVersion
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
 repositories {
     mavenCentral()
 }
+
+check.dependsOn jacocoTestReport
