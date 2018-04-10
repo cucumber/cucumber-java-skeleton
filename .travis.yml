@@ -10,4 +10,5 @@ before_script:
 -    secure: PO4VYxh2MhiaprCiVvIcofW4yso+zk9hrDQgvP+vZIL8knd5nvIpumjFqDdAKD9lfy8vlJMWvG2px3JdlgUPkstt2QknqjsPo8EAGckYiyCVXGvvtsB1xZrvNK3/wwRV6McoLl4L6b0OTlQhCQclqFdaqejQgSDmeRFDEtUMywk=
 
 after_success:
+  - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
   - bash <(curl -s https://codecov.io/bash)
