@@ -9,7 +9,6 @@ project.ext {
 dependencies {
     testCompile 'io.cucumber:cucumber-java:' + cucumberVersion
     testCompile 'io.cucumber:cucumber-junit:' + cucumberVersion
-    testCompile 'io.cucumber:pro-plugin:' + cucumberProVersion
     testCompile 'junit:junit:' + junitVersion
 }
 
