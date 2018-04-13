@@ -1,11 +1,12 @@
-language: java
+language:
+    - java
 
 jdk:
-    oraclejdk8
+    - oraclejdk8
 
 script:
-    ./gradlew check
-    ./gradlew jacocoTestReport
+    - ./gradlew check
+    - ./gradlew jacocoTestReport
 
 after_success:
-    bash <(curl -s https://codecov.io/bash)
+    - bash <(curl -s https://codecov.io/bash)
