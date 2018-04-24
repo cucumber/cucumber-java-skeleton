@@ -1,16 +1,27 @@
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'jacoco'
 
 project.ext {
     cucumberVersion = '2.4.0'
-    cucumberProVersion = '2.0.4'
     junitVersion = '4.12'
 }
 
 dependencies {
-    testCompile 'io.cucumber:cucumber-java:' + cucumberVersion
+    compile "org.codehaus.groovy:groovy-all:2.4.9"
+    compile group: 'com.google.guava', name: 'guava', version: '24.1-jre'
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.9.1'
+    testCompile 'io.cucumber:cucumber-java8:' + cucumberVersion
     testCompile 'io.cucumber:cucumber-junit:' + cucumberVersion
-    testCompile 'junit:junit:' + junitVersion
+}
+
+configurations {
+    cucumberRuntime { extendsFrom testRuntime }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
 }
 
 repositories {
@@ -30,3 +41,6 @@ jacocoTestReport {
         html.enabled false
     }
 }
+
+
+
