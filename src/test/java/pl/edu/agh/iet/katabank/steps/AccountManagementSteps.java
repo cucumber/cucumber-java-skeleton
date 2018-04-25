@@ -1,12 +1,9 @@
 package pl.edu.agh.iet.katabank.steps;
 
 import cucumber.api.java8.En;
-import pl.edu.agh.iet.katabank.Account;
-import pl.edu.agh.iet.katabank.AccountsRepository;
-import pl.edu.agh.iet.katabank.Bank;
-import pl.edu.agh.iet.katabank.Customer;
-import pl.edu.agh.iet.katabank.InMemoryAccountsRepository;
+import pl.edu.agh.iet.katabank.*;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,6 +42,21 @@ public class AccountManagementSteps implements En {
         Then("^only those accounts are on the list$",
                 () -> assertThat(customerAccounts)
                         .containsExactlyInAnyOrder(firstAccount, secondAccount));
+
+        Given("^a customer wants to open an account$", () -> customer = new Customer());
+
+        When("^his account is created$", () -> {
+            firstAccount = new Account(customer);
+            accountsRepository.addAccount(firstAccount);
+        });
+
+        Then("^there is a new account on his account list$", () -> {
+            customerAccounts = bank.getAccountsForCustomer(customer);
+            assertThat(customerAccounts).contains(firstAccount);
+        });
+      
+        And("^the balance on this account is (\\d+)$",
+                (Integer balance) -> assertThat(firstAccount.getBalance()).isEqualByComparingTo(new BigDecimal(balance)));
 
     }
 }
