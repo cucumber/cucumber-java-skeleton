@@ -34,7 +34,20 @@ public class Account {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id);
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public void withdraw(BigDecimal amount) throws IllegalArgumentException {
+        if (amount == null || amount.signum()<=0){
+            throw new IllegalArgumentException("Incorrect amount to withdraw: " + (amount == null ? null : amount.toString()));
+        }
+        if (amount.compareTo(this.balance)>0){
+            throw new IllegalArgumentException("The amount to withdraw is greater than account balance.");
+        }
+        this.balance = this.balance.subtract(amount);
     }
 }

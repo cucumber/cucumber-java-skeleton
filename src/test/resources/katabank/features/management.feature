@@ -14,3 +14,8 @@ Feature: Bank Management
     When his account is created
     Then there is a new account on his account list
     And the balance on this account is 0
+
+  Scenario: withdraw money
+    Given balance on the account is 100
+    When customer withdraws 90 from this account
+    Then balance on the account is 10

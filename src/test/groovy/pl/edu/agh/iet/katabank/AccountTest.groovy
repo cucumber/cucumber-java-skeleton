@@ -16,4 +16,45 @@ class AccountTest extends Specification{
         where:
         anotherAccount = new Account(customer)
     }
+
+    def "try to withdraw a negative amount"() {
+        when:
+        def amount = -1.00
+        account.withdraw(amount)
+
+        then:
+        IllegalArgumentException ex = thrown()
+        ex.message == 'Incorrect amount to withdraw: ' + amount
+    }
+
+    def "try to withdraw zero"() {
+        when:
+        def amount = 0.00
+        account.withdraw(amount)
+
+        then:
+        IllegalArgumentException ex = thrown()
+        ex.message == 'Incorrect amount to withdraw: ' + amount
+    }
+
+    def "try to withdraw a null"() {
+        when:
+        account.withdraw(null)
+
+        then:
+        IllegalArgumentException ex = thrown()
+        ex.message == 'Incorrect amount to withdraw: ' + null
+    }
+
+    def "try to withdraw amount greater than account balance"() {
+        setup:
+        account.setBalance(100.0)
+
+        when:
+        account.withdraw(100.01)
+
+        then:
+        IllegalArgumentException ex = thrown()
+        ex.message == 'The amount to withdraw is greater than account balance.'
+    }
 }
