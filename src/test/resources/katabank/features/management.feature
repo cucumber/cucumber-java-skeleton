@@ -15,6 +15,11 @@ Feature: Bank Management
     Then there is a new account on his account list
     And the balance on this account is 0
 
+  Scenario: deposit money
+    Given balance on the account is 100
+    When customer deposits 10 to this account
+    Then balance on the account is 110
+
   Scenario: withdraw money
     Given balance on the account is 100
     When customer withdraws 90 from this account
