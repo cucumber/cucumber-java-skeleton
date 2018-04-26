@@ -63,7 +63,7 @@ class AccountTest extends Specification {
     def "try to deposit a negative amount"() {
         when:
         def amount = -1.00
-        account.withdraw(amount)
+        account.deposit(amount)
 
         then:
         IllegalArgumentException ex = thrown()
@@ -73,7 +73,7 @@ class AccountTest extends Specification {
     def "try to deposit zero"() {
         when:
         def amount = 0.00
-        account.withdraw(amount)
+        account.deposit(amount)
 
         then:
         IllegalArgumentException ex = thrown()
@@ -82,10 +82,19 @@ class AccountTest extends Specification {
 
     def "try to deposit a null"() {
         when:
-        account.withdraw(null)
+        account.deposit(null)
 
         then:
         IllegalArgumentException ex = thrown()
         ex.message == ERROR_MESSAGE + null
+    }
+
+    def "try to transfer money to null account"() {
+        when:
+        account.transfer(null, 9.99)
+
+        then:
+        RuntimeException ex = thrown()
+        ex.message == "Target account cannot be null."
     }
 }

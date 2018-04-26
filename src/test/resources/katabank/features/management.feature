@@ -24,3 +24,10 @@ Feature: Bank Management
     Given balance on the account is 100
     When customer withdraws 90 from this account
     Then balance on the account is 10
+
+  Scenario: transfer money
+    Given balance on account A is 100
+    And balance on account B is 1000
+    When 99.91 is transferred from account A to B
+    Then balance after transfer on account A is 0.09
+    And balance after transfer on account B is 1099.91

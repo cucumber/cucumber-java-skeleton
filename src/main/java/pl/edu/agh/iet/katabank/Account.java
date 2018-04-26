@@ -60,4 +60,12 @@ public class Account {
                     + (amount == null ? null : amount.toString()));
         }
     }
+
+    public void transfer(Account targetAccount, BigDecimal bigDecimal) {
+        if (targetAccount == null) {
+            throw new RuntimeException("Target account cannot be null.");
+        }
+        this.withdraw(bigDecimal);
+        targetAccount.deposit(bigDecimal);
+    }
 }

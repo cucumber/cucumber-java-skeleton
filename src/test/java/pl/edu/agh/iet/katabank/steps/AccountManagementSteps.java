@@ -72,5 +72,29 @@ public class AccountManagementSteps implements En {
         Then("^balance on this account is (\\d+)$", (Integer balance) ->
                 assertThat(firstAccount.getBalance()).isEqualByComparingTo(new BigDecimal(balance)));
 
+        Given("^balance on account A is (\\d+)$", (Integer balance) -> {
+            firstAccount = new Account(new Customer());
+            firstAccount.setBalance(new BigDecimal(balance));
+        });
+
+        And("^balance on account B is (\\d+)$", (Integer balance) -> {
+            secondAccount = new Account(new Customer());
+            secondAccount.setBalance(new BigDecimal(balance));
+        });
+
+        When("^(.+) is transferred from account A to B$",
+                (String transferAmount) ->
+                        firstAccount.transfer(secondAccount, new BigDecimal(transferAmount)));
+
+        Then("^balance after transfer on account A is (.+)$",
+                (String newBalance) ->
+                        assertThat(firstAccount.getBalance())
+                                .isEqualByComparingTo(new BigDecimal(newBalance)));
+
+        And("^balance after transfer on account B is (.+)$",
+                (String newBalance) ->
+                        assertThat(secondAccount.getBalance())
+                                .isEqualByComparingTo(new BigDecimal(newBalance)));
+
     }
 }
