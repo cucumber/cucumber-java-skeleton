@@ -13,7 +13,7 @@ public class Account {
     public Account(Customer owner) {
         this.owner = owner;
         this.id = UUID.randomUUID();
-        this.balance =new BigDecimal(0);
+        this.balance = new BigDecimal(0);
     }
 
     public Customer getOwner() {
@@ -42,12 +42,22 @@ public class Account {
     }
 
     public void withdraw(BigDecimal amount) throws IllegalArgumentException {
-        if (amount == null || amount.signum()<=0){
-            throw new IllegalArgumentException("Incorrect amount to withdraw: " + (amount == null ? null : amount.toString()));
-        }
-        if (amount.compareTo(this.balance)>0){
+        checkValidAmount(amount);
+        if (amount.compareTo(this.balance) > 0) {
             throw new IllegalArgumentException("The amount to withdraw is greater than account balance.");
         }
         this.balance = this.balance.subtract(amount);
+    }
+
+    public void deposit(BigDecimal amount) {
+        checkValidAmount(amount);
+        this.balance = this.balance.add(amount);
+    }
+
+    private void checkValidAmount(BigDecimal amount) {
+        if (amount == null || amount.signum() <= 0) {
+            throw new IllegalArgumentException("Incorrect amount to process: "
+                    + (amount == null ? null : amount.toString()));
+        }
     }
 }
