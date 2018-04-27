@@ -1,7 +1,11 @@
 package pl.edu.agh.iet.katabank.steps;
 
 import cucumber.api.java8.En;
-import pl.edu.agh.iet.katabank.*;
+import pl.edu.agh.iet.katabank.Account;
+import pl.edu.agh.iet.katabank.AccountsRepository;
+import pl.edu.agh.iet.katabank.Bank;
+import pl.edu.agh.iet.katabank.Customer;
+import pl.edu.agh.iet.katabank.InMemoryAccountsRepository;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -59,32 +63,35 @@ public class AccountManagementSteps implements En {
                 assertThat(firstAccount.getBalance()).isEqualByComparingTo(new BigDecimal(balance)));
 
         Given("^balance on the account is (\\d+)$", (Integer initialBalance) -> {
-            firstAccount = new Account(new Customer());
+            firstAccount = new Account(customer);
             firstAccount.setBalance(new BigDecimal(initialBalance));
+            accountsRepository.addAccount(firstAccount);
         });
 
         When("^customer withdraws (\\d+) from this account$",
-                (Integer amount) -> firstAccount.withdraw(new BigDecimal(amount)));
+                (Integer amount) -> bank.withdraw(customer, firstAccount, new BigDecimal(amount)));
 
         When("^customer deposits (\\d+) to this account$",
-                (Integer amount) -> firstAccount.deposit(new BigDecimal(amount)));
+                (Integer amount) -> bank.deposit(customer, firstAccount, new BigDecimal(amount)));
 
         Then("^balance on this account is (\\d+)$", (Integer balance) ->
                 assertThat(firstAccount.getBalance()).isEqualByComparingTo(new BigDecimal(balance)));
 
         Given("^balance on account A is (\\d+)$", (Integer balance) -> {
-            firstAccount = new Account(new Customer());
+            firstAccount = new Account(customer);
             firstAccount.setBalance(new BigDecimal(balance));
+            accountsRepository.addAccount(firstAccount);
         });
 
         And("^balance on account B is (\\d+)$", (Integer balance) -> {
             secondAccount = new Account(new Customer());
             secondAccount.setBalance(new BigDecimal(balance));
+            accountsRepository.addAccount(firstAccount);
         });
 
         When("^(.+) is transferred from account A to B$",
                 (String transferAmount) ->
-                        firstAccount.transfer(secondAccount, new BigDecimal(transferAmount)));
+                        bank.transfer(customer, firstAccount, secondAccount, new BigDecimal(transferAmount)));
 
         Then("^balance after transfer on account A is (.+)$",
                 (String newBalance) ->
