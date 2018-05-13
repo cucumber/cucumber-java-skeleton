@@ -1,11 +1,7 @@
 package pl.edu.agh.iet.katabank.steps;
 
 import cucumber.api.java8.En;
-import pl.edu.agh.iet.katabank.Account;
-import pl.edu.agh.iet.katabank.AccountsRepository;
-import pl.edu.agh.iet.katabank.Bank;
-import pl.edu.agh.iet.katabank.Customer;
-import pl.edu.agh.iet.katabank.InMemoryAccountsRepository;
+import pl.edu.agh.iet.katabank.*;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -14,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AccountManagementSteps implements En {
 
-    private AccountsRepository accountsRepository;
+    private BankProductsRepository bankProductsRepository;
     private Customer customer;
     private Bank bank;
     private Account firstAccount, secondAccount;
@@ -23,8 +19,8 @@ public class AccountManagementSteps implements En {
     public AccountManagementSteps() {
 
         Given("^there is a bank with account$", () -> {
-            accountsRepository = new InMemoryAccountsRepository();
-            bank = new Bank(accountsRepository);
+            bankProductsRepository = new InMemoryBankProductsRepository();
+            bank = new Bank(bankProductsRepository);
         });
 
         Given("^there is a customer$",
@@ -33,11 +29,11 @@ public class AccountManagementSteps implements En {
         Given("^a customer has two accounts open$", () -> {
             // create first account for customer
             firstAccount = new Account(customer);
-            accountsRepository.addAccount(firstAccount);
+            bankProductsRepository.addAccount(firstAccount);
 
             // create second account for customer
             secondAccount = new Account(customer);
-            accountsRepository.addAccount(secondAccount);
+            bankProductsRepository.addAccount(secondAccount);
         });
 
         When("^he lists his accounts$",
@@ -51,7 +47,7 @@ public class AccountManagementSteps implements En {
 
         When("^his account is created$", () -> {
             firstAccount = new Account(customer);
-            accountsRepository.addAccount(firstAccount);
+            bankProductsRepository.addAccount(firstAccount);
         });
 
         Then("^there is a new account on his account list$", () -> {
@@ -65,7 +61,7 @@ public class AccountManagementSteps implements En {
         Given("^balance on the account is (\\d+)$", (Integer initialBalance) -> {
             firstAccount = new Account(customer);
             firstAccount.setBalance(new BigDecimal(initialBalance));
-            accountsRepository.addAccount(firstAccount);
+            bankProductsRepository.addAccount(firstAccount);
         });
 
         When("^customer withdraws (\\d+) from this account$",
@@ -80,13 +76,13 @@ public class AccountManagementSteps implements En {
         Given("^balance on account A is (\\d+)$", (Integer balance) -> {
             firstAccount = new Account(customer);
             firstAccount.setBalance(new BigDecimal(balance));
-            accountsRepository.addAccount(firstAccount);
+            bankProductsRepository.addAccount(firstAccount);
         });
 
         And("^balance on account B is (\\d+)$", (Integer balance) -> {
             secondAccount = new Account(new Customer());
             secondAccount.setBalance(new BigDecimal(balance));
-            accountsRepository.addAccount(firstAccount);
+            bankProductsRepository.addAccount(firstAccount);
         });
 
         When("^(.+) is transferred from account A to B$",

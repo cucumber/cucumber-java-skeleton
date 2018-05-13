@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class BankTest extends Specification {
 
-    private final AccountsRepository repository = new InMemoryAccountsRepository()
+    private final BankProductsRepository repository = new InMemoryBankProductsRepository()
     private final Bank bank = new Bank(repository)
     private final Customer customer = new Customer()
 
