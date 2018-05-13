@@ -30,11 +30,12 @@ class InMemoryBankProductsRepositoryTest extends Specification{
         when:
         def customer = new Customer()
         def account = new Account(customer)
+        account.setBalance(20)
         def deposit = new Deposit(account, 10)
         accountsRepository.addAccount(account)
-        accountsRepository.addDeposit(deposit)4
+        accountsRepository.addDeposit(deposit)
 
         then:
-        assertThat(accountsRepository.findDepositsForCustomer()).contains(deposit)
+        assertThat(accountsRepository.findDepositsForCustomer(customer)).contains(deposit)
     }
 }

@@ -8,6 +8,7 @@ public class Bank {
     private static final String ERROR_MESSAGE_DEPOSIT = "Customer cannot deposit money to others account.";
     private static final String ERROR_MESSAGE_WITHDRAW = "Customer cannot withdraw money from others account.";
     private static final String ERROR_MESSAGE_TRANSFER = "Customer cannot transfer money from others account.";
+    private static final String ERROR_MESSAGE_OPEN_DEPOSIT = "Customer cannot open deposit from others account.";
 
     private BankProductsRepository bankProductsRepository;
 
@@ -42,5 +43,10 @@ public class Bank {
 
     public Set<Deposit> getDepositsForCustomer(Customer customer) {
         return bankProductsRepository.findDepositsForCustomer(customer);
+    }
+
+    public Deposit openDeposit (Customer customer, Account account, BigDecimal depositBalance){
+        checkOperationNotAllowed(customer, account, ERROR_MESSAGE_OPEN_DEPOSIT);
+        return new Deposit(account, depositBalance);
     }
 }
