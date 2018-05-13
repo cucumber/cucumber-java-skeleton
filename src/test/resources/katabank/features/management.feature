@@ -31,3 +31,9 @@ Feature: Bank Management
     When 99.91 is transferred from account A to B
     Then balance after transfer on account A is 0.09
     And balance after transfer on account B is 1099.91
+
+  Scenario: Opening deposit
+    Given a customer has an account with balance 100
+    When he opens a deposit with balance 90
+    Then he owns a deposit with balance 90
+    And the account has balance 10

@@ -99,5 +99,11 @@ public class AccountManagementSteps implements En {
                         assertThat(secondAccount.getBalance())
                                 .isEqualByComparingTo(new BigDecimal(newBalance)));
 
+        Given("^a customer has an account with balance (\\d+)$", (Integer balance) -> {
+            firstAccount = new Account(customer);
+            firstAccount.setBalance(new BigDecimal(balance));
+            bankProductsRepository.addAccount(firstAccount);
+        });
+
     }
 }
