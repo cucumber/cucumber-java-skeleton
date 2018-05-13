@@ -118,7 +118,7 @@ public class AccountManagementSteps implements En {
             assertThat(customerDeposits).contains(firstDeposit);
             assertThat(firstDeposit.getBalance()).isEqualByComparingTo(new BigDecimal(depositBalance));
         });
-        
+
         And("^the account has balance (\\d+)$", (Integer accountNewBalance) -> {
             assertThat(firstAccount.getBalance()).isEqualByComparingTo(new BigDecimal(accountNewBalance));
         });
