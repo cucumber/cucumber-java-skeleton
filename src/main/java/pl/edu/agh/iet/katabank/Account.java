@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Account {
+public class Account implements BankProduct {
 
     private final Customer owner;
     private BigDecimal balance;
