@@ -8,4 +8,8 @@ public interface BankProductsRepository {
 
     Set<Account> findAccountsForCustomer (Customer customer);
 
+    void addDeposit (Deposit deposit);
+
+    Set<Deposit> findDepositsForCustomer (Customer customer);
+
 }

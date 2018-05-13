@@ -16,6 +16,10 @@ public class Deposit implements BankProduct {
         this.id = UUID.randomUUID();
     }
 
+    public Account getConnectedAccount() {
+        return connectedAccount;
+    }
+
     public BigDecimal getBalance() {
         return this.balance;
     }
