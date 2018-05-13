@@ -1,5 +1,6 @@
 package pl.edu.agh.iet.katabank.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import pl.edu.agh.iet.katabank.*;
 
@@ -15,6 +16,8 @@ public class AccountManagementSteps implements En {
     private Bank bank;
     private Account firstAccount, secondAccount;
     private Set<Account> customerAccounts;
+    private Deposit firstDeposit;
+    private Set<Deposit> customerDeposits;
 
     public AccountManagementSteps() {
 
@@ -103,6 +106,21 @@ public class AccountManagementSteps implements En {
             firstAccount = new Account(customer);
             firstAccount.setBalance(new BigDecimal(balance));
             bankProductsRepository.addAccount(firstAccount);
+        });
+
+        When("^he opens a deposit with balance (\\d+)$", (Integer depositBalance) -> {
+            firstDeposit = new Deposit(firstAccount, new BigDecimal(depositBalance));
+            bankProductsRepository.addDeposit(firstDeposit);
+        });
+ ;
+        Then("^he owns a deposit with balance (\\d+)$", (Integer depositBalance) -> {
+            customerDeposits = bank.getDepositsForCustomer(customer);
+            assertThat(customerDeposits).contains(firstDeposit);
+            assertThat(firstDeposit.getBalance()).isEqualByComparingTo(new BigDecimal(depositBalance));
+        });
+        
+        And("^the account has balance (\\d+)$", (Integer accountNewBalance) -> {
+            assertThat(firstAccount.getBalance()).isEqualByComparingTo(new BigDecimal(accountNewBalance));
         });
 
     }

@@ -10,8 +10,8 @@ public class Deposit implements BankProduct {
     private Account connectedAccount;
     private final UUID id;
 
-    public Deposit (Account connectedAccount, BigDecimal blance) {
-        this.balance = balance;
+    public Deposit (Account connectedAccount, BigDecimal balance) {
+        this.balance = this.balance;
         this.connectedAccount = connectedAccount;
         this.id = UUID.randomUUID();
     }
