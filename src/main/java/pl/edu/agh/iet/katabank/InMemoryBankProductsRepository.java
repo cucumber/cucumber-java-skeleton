@@ -12,6 +12,7 @@ public class InMemoryBankProductsRepository implements BankProductsRepository {
 
     public InMemoryBankProductsRepository() {
         this.accountsMap = new HashMap<>();
+        this.depositsMap = new HashMap<>();
     }
 
     @Override
@@ -31,6 +32,8 @@ public class InMemoryBankProductsRepository implements BankProductsRepository {
     public void addDeposit(Deposit deposit) {
         Set<Deposit> accountsDeposits = depositsMap.get(deposit.getConnectedAccount()) != null
                 ? depositsMap.get(deposit.getConnectedAccount()) : new HashSet<>();
+        accountsDeposits.add(deposit);
+        depositsMap.put(deposit.getConnectedAccount(), accountsDeposits);
     }
 
     @Override

@@ -39,4 +39,8 @@ public class Bank {
             throw new RuntimeException(message);
         }
     }
+
+    public Set<Deposit> getDepositsForCustomer(Customer customer) {
+        return bankProductsRepository.findDepositsForCustomer(customer);
+    }
 }

@@ -15,4 +15,26 @@ class InMemoryBankProductsRepositoryTest extends Specification{
         where:
         customer = new Customer()
     }
+
+    def "when customer has no deposits, empty set is returned" (){
+        expect:
+        assertThat(accountsRepository.findDepositsForCustomer(customer)).isEmpty()
+
+        where:
+        customer = new Customer()
+    }
+
+    def "when has a deposit, the set contains the deposit" (){
+
+
+        when:
+        def customer = new Customer()
+        def account = new Account(customer)
+        def deposit = new Deposit(account, 10)
+        accountsRepository.addAccount(account)
+        accountsRepository.addDeposit(deposit)4
+
+        then:
+        assertThat(accountsRepository.findDepositsForCustomer()).contains(deposit)
+    }
 }
