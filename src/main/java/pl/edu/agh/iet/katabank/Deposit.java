@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public class Deposit implements BankProduct {
 
+    //Komentarz do usuniecia - robie byle jaka zmiane w pliku, zeby miec z czego zrobic nowy commit i push
+    
     private BigDecimal balance;
     private Account connectedAccount;
     private final UUID id;
