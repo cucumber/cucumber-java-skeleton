@@ -21,7 +21,7 @@ public class Deposit implements BankProduct {
 
     private void checkValidAmount(Account connectedAccount, BigDecimal newDepositBalance) {
         if (newDepositBalance==null || newDepositBalance.signum()<=0 || newDepositBalance.compareTo(connectedAccount.getBalance())>0){
-            throw new IllegalArgumentException(INCORRECT_AMOUNT_MESSAGE + newDepositBalance.toString());
+            throw new IllegalArgumentException(INCORRECT_AMOUNT_MESSAGE + newDepositBalance);
         }
     }
 
