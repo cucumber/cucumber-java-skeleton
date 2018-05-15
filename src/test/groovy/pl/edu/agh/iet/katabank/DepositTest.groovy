@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class DepositTest extends Specification{
 
-    private static final String ERROR_MESSAGE = 'Incorrect amount to process: '
+    private static final String ERROR_MESSAGE = 'Incorrect initial balance to open deposit: '
 
     private final Customer customer = new Customer()
     private final Account account = new Account(customer)

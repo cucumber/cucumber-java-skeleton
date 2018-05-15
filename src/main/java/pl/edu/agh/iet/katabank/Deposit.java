@@ -9,15 +9,13 @@ public class Deposit implements BankProduct {
     private BigDecimal balance;
     private Account connectedAccount;
     private final UUID id;
-    private final String INCORRECT_AMOUNT_MESSAGE = "Incorrect amount to process: ";
+    private final String INCORRECT_AMOUNT_MESSAGE = "Incorrect initial balance to open deposit: ";
 
     public Deposit (Account account, BigDecimal initialBalance) {
         try {
             account.withdraw(initialBalance);
         } catch (IllegalArgumentException e) {
-            if (e.getMessage().startsWith("The amount to withdraw is greater than account balance"))
-                throw new IllegalArgumentException(INCORRECT_AMOUNT_MESSAGE + initialBalance);
-            else throw e;
+            throw new IllegalArgumentException(INCORRECT_AMOUNT_MESSAGE + initialBalance);
         }
 
         this.balance = initialBalance;
