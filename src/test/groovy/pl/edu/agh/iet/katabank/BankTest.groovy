@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class BankTest extends Specification {
 
-    private final AccountsRepository repository = new InMemoryAccountsRepository()
+    private final BankProductsRepository repository = new InMemoryBankProductsRepository()
     private final Bank bank = new Bank(repository)
     private final Customer customer = new Customer()
 
@@ -33,6 +33,22 @@ class BankTest extends Specification {
         then:
         RuntimeException ex = thrown()
         ex.message == 'Customer cannot transfer money from others account.'
+
+        where:
+        account = new Account(customer)
+        anotherCustomer = new Customer()
+        anotherAccount = new Account(anotherCustomer)
+    }
+
+    def "customer cannot open deposit for other customer account"() {
+        when:
+        repository.addAccount(account)
+        repository.addAccount(anotherAccount)
+        bank.openDeposit(customer, anotherAccount, 10)
+
+        then:
+        RuntimeException ex = thrown()
+        ex.message == 'Customer cannot open deposit from others account.'
 
         where:
         account = new Account(customer)
