@@ -1,5 +1,12 @@
-language: java
-env:
-  global:
-    # CUCUMBERPRO_RESULTS_TOKEN
-    secure: PO4VYxh2MhiaprCiVvIcofW4yso+zk9hrDQgvP+vZIL8knd5nvIpumjFqDdAKD9lfy8vlJMWvG2px3JdlgUPkstt2QknqjsPo8EAGckYiyCVXGvvtsB1xZrvNK3/wwRV6McoLl4L6b0OTlQhCQclqFdaqejQgSDmeRFDEtUMywk=
+language:
+    - java
+
+jdk:
+    - oraclejdk8
+
+script:
+    - ./gradlew check
+    - ./gradlew jacocoTestReport
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
