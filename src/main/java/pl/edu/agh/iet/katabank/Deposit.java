@@ -6,29 +6,27 @@ import java.util.UUID;
 
 public class Deposit implements BankProduct {
 
-    //Komentarz do usuniecia - robie byle jaka zmiane w pliku, zeby miec z czego zrobic nowy commit i push
-    
     private BigDecimal balance;
     private Account connectedAccount;
     private final UUID id;
     private final String INCORRECT_AMOUNT_MESSAGE = "Incorrect amount to process: ";
 
-    public Deposit (Account account, BigDecimal newDepositBalance) {
-        checkValidAmount(account, newDepositBalance);
-        account.withdraw(newDepositBalance);
-        this.balance = newDepositBalance;
+    public Deposit (Account account, BigDecimal initialBalance) {
+        try {
+            account.withdraw(initialBalance);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().startsWith("The amount to withdraw is greater than account balance"))
+                throw new IllegalArgumentException(INCORRECT_AMOUNT_MESSAGE + initialBalance);
+            else throw e;
+        }
+
+        this.balance = initialBalance;
         this.connectedAccount = account;
         this.id = UUID.randomUUID();
     }
 
-    private void checkValidAmount(Account connectedAccount, BigDecimal newDepositBalance) {
-        if (newDepositBalance==null || newDepositBalance.signum()<=0 || newDepositBalance.compareTo(connectedAccount.getBalance())>0){
-            throw new IllegalArgumentException(INCORRECT_AMOUNT_MESSAGE + newDepositBalance);
-        }
-    }
-
     public Account getConnectedAccount() {
-        return connectedAccount;
+        return this.connectedAccount;
     }
 
     public BigDecimal getBalance() {
@@ -37,7 +35,7 @@ public class Deposit implements BankProduct {
 
     @Override
     public Customer getOwner() {
-        return connectedAccount.getOwner();
+        return this.connectedAccount.getOwner();
     }
 
     @Override

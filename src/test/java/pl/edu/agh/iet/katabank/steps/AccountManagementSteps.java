@@ -103,7 +103,7 @@ public class AccountManagementSteps implements En {
 
         Given("^a customer has an account with balance (\\d+)$", (Integer balance) -> {
             firstAccount = new Account(customer);
-            firstAccount.setBalance(new BigDecimal(20));
+            //firstAccount.setBalance(new BigDecimal(20));
             firstAccount.setBalance(new BigDecimal(balance));
             bankProductsRepository.addAccount(firstAccount);
         });
@@ -120,7 +120,7 @@ public class AccountManagementSteps implements En {
         });
 
         And("^the account has balance (\\d+)$", (Integer accountNewBalance) -> {
-            //assertThat(firstAccount.getBalance()).isEqualByComparingTo(new BigDecimal(accountNewBalance));
+            assertThat(firstAccount.getBalance()).isEqualByComparingTo(new BigDecimal(accountNewBalance));
         });
 
     }

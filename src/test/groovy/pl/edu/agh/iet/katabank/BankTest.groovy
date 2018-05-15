@@ -39,4 +39,20 @@ class BankTest extends Specification {
         anotherCustomer = new Customer()
         anotherAccount = new Account(anotherCustomer)
     }
+
+    def "customer cannot open deposit for other customer account"() {
+        when:
+        repository.addAccount(account)
+        repository.addAccount(anotherAccount)
+        bank.openDeposit(customer, anotherAccount, 10)
+
+        then:
+        RuntimeException ex = thrown()
+        ex.message == 'Customer cannot open deposit from others account.'
+
+        where:
+        account = new Account(customer)
+        anotherCustomer = new Customer()
+        anotherAccount = new Account(anotherCustomer)
+    }
 }
