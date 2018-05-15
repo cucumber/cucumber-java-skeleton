@@ -103,7 +103,6 @@ public class AccountManagementSteps implements En {
 
         Given("^a customer has an account with balance (\\d+)$", (Integer balance) -> {
             firstAccount = new Account(customer);
-            //firstAccount.setBalance(new BigDecimal(20));
             firstAccount.setBalance(new BigDecimal(balance));
             bankProductsRepository.addAccount(firstAccount);
         });
