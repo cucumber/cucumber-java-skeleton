@@ -37,3 +37,8 @@ Feature: Bank Management
     When he opens a deposit with balance 90
     Then he owns a deposit with balance 90
     And the account has balance 10
+
+  Scenario: Termination date
+    Given a customer opened a deposit for a period of one year
+    When one year has passed
+    Then the money is transferred back to the account the funds were taken from

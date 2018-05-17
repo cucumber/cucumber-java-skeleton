@@ -1,9 +1,15 @@
 package pl.edu.agh.iet.katabank.steps;
 
 import cucumber.api.java8.En;
-import pl.edu.agh.iet.katabank.*;
+import pl.edu.agh.iet.katabank.bankproduct.Account;
+import pl.edu.agh.iet.katabank.Bank;
+import pl.edu.agh.iet.katabank.repository.BankProductsRepository;
+import pl.edu.agh.iet.katabank.Customer;
+import pl.edu.agh.iet.katabank.bankproduct.Deposit;
+import pl.edu.agh.iet.katabank.repository.InMemoryBankProductsRepository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,6 +23,8 @@ public class AccountManagementSteps implements En {
     private Set<Account> customerAccounts;
     private Deposit firstDeposit;
     private Set<Deposit> customerDeposits;
+    private LocalDate date;
+    private BigDecimal amount;
 
     public AccountManagementSteps() {
 
@@ -111,15 +119,35 @@ public class AccountManagementSteps implements En {
             firstDeposit = bank.openDeposit(customer, firstAccount, new BigDecimal(depositBalance));
             bankProductsRepository.addDeposit(firstDeposit);
         });
- ;
+
         Then("^he owns a deposit with balance (\\d+)$", (Integer depositBalance) -> {
             customerDeposits = bank.getDepositsForCustomer(customer);
             assertThat(customerDeposits).contains(firstDeposit);
             assertThat(firstDeposit.getBalance()).isEqualByComparingTo(new BigDecimal(depositBalance));
         });
 
-        And("^the account has balance (\\d+)$", (Integer accountNewBalance) -> {
-            assertThat(firstAccount.getBalance()).isEqualByComparingTo(new BigDecimal(accountNewBalance));
+        And("^the account has balance (\\d+)$", (Integer accountNewBalance)
+                -> assertThat(firstAccount.getBalance()).isEqualByComparingTo(new BigDecimal(accountNewBalance)));
+
+        Given("^a customer opened a deposit for a period of one year$", () -> {
+            firstAccount = new Account(customer);
+            amount = new BigDecimal("10");
+            firstAccount.setBalance(amount);
+            date = LocalDate.now();
+            firstDeposit = new Deposit(firstAccount, amount, date, 12);
+        });
+
+        When("^one year has passed$", () -> {
+            assertThat(firstAccount.getBalance()).isLessThan(amount);
+            assertThat(firstDeposit.getBalance()).isEqualByComparingTo(amount);
+            date = date.plusMonths(12);
+        });
+
+        Then("^the money is transferred back to the account the funds were taken from$", () -> {
+            firstDeposit.closeDeposit(date);
+            assertThat(firstAccount.getBalance()).isGreaterThanOrEqualTo(amount);
+            assertThat(firstDeposit.getBalance()).isZero();
+            assertThat(firstDeposit.isOpen()).isFalse();
         });
 
     }

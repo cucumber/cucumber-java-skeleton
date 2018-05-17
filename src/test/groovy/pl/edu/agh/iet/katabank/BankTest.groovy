@@ -1,5 +1,8 @@
 package pl.edu.agh.iet.katabank
 
+import pl.edu.agh.iet.katabank.bankproduct.Account
+import pl.edu.agh.iet.katabank.repository.BankProductsRepository
+import pl.edu.agh.iet.katabank.repository.InMemoryBankProductsRepository
 import spock.lang.Specification
 
 class BankTest extends Specification {

@@ -1,5 +1,9 @@
-package pl.edu.agh.iet.katabank
+package pl.edu.agh.iet.katabank.repository
 
+import pl.edu.agh.iet.katabank.Customer
+import pl.edu.agh.iet.katabank.bankproduct.Account
+import pl.edu.agh.iet.katabank.bankproduct.Deposit
+import pl.edu.agh.iet.katabank.repository.InMemoryBankProductsRepository
 import spock.lang.Specification
 
 import static org.assertj.core.api.Assertions.assertThat

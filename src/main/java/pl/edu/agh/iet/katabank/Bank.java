@@ -1,5 +1,9 @@
 package pl.edu.agh.iet.katabank;
 
+import pl.edu.agh.iet.katabank.bankproduct.Account;
+import pl.edu.agh.iet.katabank.bankproduct.Deposit;
+import pl.edu.agh.iet.katabank.repository.BankProductsRepository;
+
 import java.math.BigDecimal;
 import java.util.Set;
 

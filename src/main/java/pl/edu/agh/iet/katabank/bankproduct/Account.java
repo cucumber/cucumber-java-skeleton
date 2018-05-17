@@ -1,4 +1,6 @@
-package pl.edu.agh.iet.katabank;
+package pl.edu.agh.iet.katabank.bankproduct;
+
+import pl.edu.agh.iet.katabank.Customer;
 
 import java.math.BigDecimal;
 import java.util.Objects;
