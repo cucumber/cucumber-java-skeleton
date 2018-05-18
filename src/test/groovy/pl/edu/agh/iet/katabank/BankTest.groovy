@@ -1,6 +1,8 @@
 package pl.edu.agh.iet.katabank
 
 import pl.edu.agh.iet.katabank.bankproduct.Account
+import pl.edu.agh.iet.katabank.bankproduct.deposittype.DepositType
+import pl.edu.agh.iet.katabank.bankproduct.deposittype.MonthlyDepositType
 import pl.edu.agh.iet.katabank.repository.BankProductsRepository
 import pl.edu.agh.iet.katabank.repository.InMemoryBankProductsRepository
 import spock.lang.Specification
@@ -10,6 +12,7 @@ class BankTest extends Specification {
     private final BankProductsRepository repository = new InMemoryBankProductsRepository()
     private final Bank bank = new Bank(repository)
     private final Customer customer = new Customer()
+    private final DepositType depositType = new MonthlyDepositType(12, 10.0)
 
     def "customer cannot withdraw money from other customer account"() {
         when:
@@ -47,7 +50,7 @@ class BankTest extends Specification {
         when:
         repository.addAccount(account)
         repository.addAccount(anotherAccount)
-        bank.openDeposit(customer, anotherAccount, 10)
+        bank.openDeposit(customer, anotherAccount, 10.0, depositType)
 
         then:
         RuntimeException ex = thrown()

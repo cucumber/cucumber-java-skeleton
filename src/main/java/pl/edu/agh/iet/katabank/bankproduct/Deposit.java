@@ -1,6 +1,7 @@
 package pl.edu.agh.iet.katabank.bankproduct;
 
 import pl.edu.agh.iet.katabank.Customer;
+import pl.edu.agh.iet.katabank.bankproduct.deposittype.DepositType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,7 +10,6 @@ import java.util.UUID;
 
 public class Deposit implements BankProduct {
 
-    private static final int DEFAULT_DURATION = 12;
     private static final String INCORRECT_INITIAL_BALANCE_MESSAGE = "Incorrect initial balance to open deposit: ";
     private static final String CANNOT_CLOSE_ALREADY_CLOSED_DEPOSIT_MESSAGE = "Cannot close already closed deposit";
     private static final String CANNOT_CLOSE_DEPOSIT_ON_DATE_MESSAGE = "Cannot close deposit on date: ";
@@ -18,14 +18,14 @@ public class Deposit implements BankProduct {
     private Account connectedAccount;
     private final UUID id;
     private final LocalDate openDate;
-    private final int durationInMonths;
+    private final DepositType depositType;
     private boolean open;
 
-    public Deposit(Account account, BigDecimal initialBalance) {
-        this(account, initialBalance, LocalDate.now(), DEFAULT_DURATION);
+    public Deposit(Account account, BigDecimal initialBalance, DepositType depositType) {
+        this(account, initialBalance, LocalDate.now(), depositType);
     }
 
-    public Deposit(Account account, BigDecimal initialBalance, LocalDate openDate, int durationInMonths) {
+    public Deposit(Account account, BigDecimal initialBalance, LocalDate openDate, DepositType depositType) {
         try {
             account.withdraw(initialBalance);
         } catch (IllegalArgumentException e) {
@@ -36,7 +36,7 @@ public class Deposit implements BankProduct {
         this.connectedAccount = account;
         this.id = UUID.randomUUID();
         this.openDate = openDate;
-        this.durationInMonths = durationInMonths;
+        this.depositType = depositType;
         this.open = true;
     }
 
@@ -52,8 +52,20 @@ public class Deposit implements BankProduct {
         return this.openDate;
     }
 
+    public DepositType getDepositType() {
+        return this.depositType;
+    }
+
     public boolean isOpen() {
         return this.open;
+    }
+
+    public BigDecimal getYearlyInterestRatePercent() {
+        return this.depositType.getYearlyInterestRatePercent();
+    }
+
+    public LocalDate getCloseDate() {
+        return getDepositType().calculateCloseDate(this.openDate);
     }
 
     @Override
@@ -78,12 +90,13 @@ public class Deposit implements BankProduct {
         if (!isOpen()) {
             throw new RuntimeException(CANNOT_CLOSE_ALREADY_CLOSED_DEPOSIT_MESSAGE);
         }
-        if (date == null || date.isBefore(this.openDate.plusMonths(durationInMonths))) {
+        if (date == null || date.isBefore(getCloseDate())) {
             throw new RuntimeException(CANNOT_CLOSE_DEPOSIT_ON_DATE_MESSAGE + date);
         }
         BigDecimal closeBalance = this.balance;
         this.balance = BigDecimal.ZERO;
-        this.connectedAccount.deposit(closeBalance);
+        this.connectedAccount.deposit(closeBalance.add(this.depositType.calculateInterest(closeBalance)));
         this.open = false;
     }
+
 }

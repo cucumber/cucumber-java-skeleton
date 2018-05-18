@@ -2,6 +2,7 @@ package pl.edu.agh.iet.katabank;
 
 import pl.edu.agh.iet.katabank.bankproduct.Account;
 import pl.edu.agh.iet.katabank.bankproduct.Deposit;
+import pl.edu.agh.iet.katabank.bankproduct.deposittype.DepositType;
 import pl.edu.agh.iet.katabank.repository.BankProductsRepository;
 
 import java.math.BigDecimal;
@@ -49,8 +50,8 @@ public class Bank {
         return bankProductsRepository.findDepositsForCustomer(customer);
     }
 
-    public Deposit openDeposit (Customer customer, Account account, BigDecimal depositBalance){
+    public Deposit openDeposit (Customer customer, Account account, BigDecimal depositBalance, DepositType depositType){
         checkOperationNotAllowed(customer, account, ERROR_MESSAGE_OPEN_DEPOSIT);
-        return new Deposit(account, depositBalance);
+        return new Deposit(account, depositBalance, depositType);
     }
 }
