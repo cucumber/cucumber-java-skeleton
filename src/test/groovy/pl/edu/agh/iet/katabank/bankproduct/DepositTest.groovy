@@ -1,34 +1,38 @@
 package pl.edu.agh.iet.katabank.bankproduct
 
 import pl.edu.agh.iet.katabank.Customer
-import pl.edu.agh.iet.katabank.bankproduct.deposittype.DepositType
-import pl.edu.agh.iet.katabank.bankproduct.deposittype.MonthlyDepositType
+import pl.edu.agh.iet.katabank.bankproduct.amount.DepositPayment
+import pl.edu.agh.iet.katabank.bankproduct.amount.Payment
+import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.DepositDurationDetails
+import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.InterestPolicy
+import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.MonthlyInterestPolicy
 import spock.lang.Specification
 
 import java.time.LocalDate
 
 import static org.assertj.core.api.Assertions.assertThat
+import static pl.edu.agh.iet.katabank.bankproduct.interestpolicy.DepositDurationDetails.DurationType.MONTHS
 
 class DepositTest extends Specification {
 
-    private static final String ERROR_MESSAGE_OPEN_DEPOSIT = 'Incorrect initial balance to open deposit: '
-    private static final String ERROR_MESSAGE_CLOSE_DEPOSIT_ON_DATE = 'Cannot close deposit on date: '
     private static final String ERROR_MESSAGE_CLOSE_DEPOSIT_ALREADY_CLOSED = 'Cannot close already closed deposit'
+    private static final String CANNOT_ADD_PAYMENT_TO_CLOSED_DEPOSIT = "Cannot add payment to closed deposit"
+    private static final String PAYMENT_DATE_BEFORE_DEPOSIT_OPEN_DATE = "Payment's date is before deposit open date."
 
     private final Customer customer = new Customer()
     private final Account account = new Account(customer)
     private int durationInMonths = 12
-    private DepositType depositType = new MonthlyDepositType(durationInMonths, 10.0)
+    private BigDecimal amount = 100.0
+    private InterestPolicy interestPolicy = new MonthlyInterestPolicy(10.0)
+    private Payment depositPayment = new DepositPayment(amount, LocalDate.now())
+    private final DepositDurationDetails depositDurationDetails = new DepositDurationDetails(durationInMonths, MONTHS)
     private Deposit deposit
-    private BigDecimal amount
-    private LocalDate openDate
+
 
     def "two deposits created for the same account are not equal"() {
         when:
-        amount = 50
-        account.setBalance(200.0)
-        def firstDeposit = new Deposit(account, amount, depositType)
-        def secondDeposit = new Deposit(account, amount, depositType)
+        def firstDeposit = new Deposit(account, depositPayment, depositDurationDetails, interestPolicy)
+        def secondDeposit = new Deposit(account, depositPayment, depositDurationDetails, interestPolicy)
 
         then:
         assertThat(firstDeposit).isNotEqualTo(secondDeposit)
@@ -36,217 +40,129 @@ class DepositTest extends Specification {
 
     def "deposit created has the same owner as connected account"() {
         when:
-        account.setBalance(amount)
-        deposit = new Deposit(account, amount, depositType)
+        deposit = new Deposit(account, depositPayment, depositDurationDetails, interestPolicy)
 
         then:
         assertThat(deposit.getOwner()).isEqualTo(account.getOwner())
-
-        where:
-        amount = 10.0
     }
 
-    def "try to open a deposit with a negative balance"() {
+    def "deposit open date equals first payment date"() {
+        given:
+        def secondDepositPayment = new DepositPayment(25.0, LocalDate.now().plusMonths(1))
+        def secondInterestPolicy = new MonthlyInterestPolicy(12.0)
+
         when:
-        amount = -1
-        account.setBalance(100.0)
-        deposit = new Deposit(account, amount, depositType)
+        deposit = new Deposit(account, depositPayment, depositDurationDetails, interestPolicy)
+        deposit.addPayment(secondDepositPayment, secondInterestPolicy)
 
         then:
-        IllegalArgumentException ex = thrown()
-        ex.message == ERROR_MESSAGE_OPEN_DEPOSIT + amount
-    }
-
-    def "try to open a deposit with a zero balance"() {
-        when:
-        amount = 0
-        account.setBalance(100.0)
-        deposit = new Deposit(account, amount, depositType)
-
-        then:
-        IllegalArgumentException ex = thrown()
-        ex.message == ERROR_MESSAGE_OPEN_DEPOSIT + amount
-    }
-
-    def "try to open a deposit for amount greater than the account balance"() {
-        when:
-        amount = 100
-        account.setBalance(amount - 1)
-        deposit = new Deposit(account, amount, depositType)
-
-        then:
-        IllegalArgumentException ex = thrown()
-        ex.message == ERROR_MESSAGE_OPEN_DEPOSIT + amount
-    }
-
-    def "try to open a deposit for a null amount"() {
-        when:
-        account.setBalance(100.0)
-        deposit = new Deposit(account, amount, depositType)
-
-        then:
-        IllegalArgumentException ex = thrown()
-        ex.message == ERROR_MESSAGE_OPEN_DEPOSIT + amount
-    }
-
-    def "default deposit is open with today's date"() {
-        when:
-        account.setBalance(amount)
-        deposit = new Deposit(account, amount, depositType)
-
-        then:
-        deposit.getOpenDate().isEqual(LocalDate.now())
-
-        where:
-        amount = 10.0
-    }
-
-    def "deposit cannot be closed before duration passed"() {
-        when:
-        account.setBalance(amount)
-        def closeDate = openDate.plusMonths(durationInMonths - 1)
-        deposit = new Deposit(account, amount, openDate, depositType)
-        deposit.closeDeposit(closeDate)
-
-        then:
-        RuntimeException ex = thrown()
-        ex.message == ERROR_MESSAGE_CLOSE_DEPOSIT_ON_DATE + closeDate
-
-        where:
-        amount = 10.0
-        openDate = LocalDate.now()
-    }
-
-    def "deposit cannot be closed when passed close date is null"() {
-        when:
-        account.setBalance(amount)
-        def closeDate = null
-        deposit = new Deposit(account, amount, openDate, depositType)
-        deposit.closeDeposit(closeDate)
-
-        then:
-        RuntimeException ex = thrown()
-        ex.message == ERROR_MESSAGE_CLOSE_DEPOSIT_ON_DATE + closeDate
-
-        where:
-        amount = 10.0
-        openDate = LocalDate.now()
+        assertThat(deposit.getOpenDate()).isEqualTo(depositPayment.getPaymentDate())
+        assertThat(deposit.getOpenDate()).isNotEqualTo(secondDepositPayment.getPaymentDate())
     }
 
     def "when deposit closed balance is zero"() {
+        given:
+        def closeDate = depositPayment.getPaymentDate().plusMonths(durationInMonths)
+        deposit = new Deposit(account, depositPayment, depositDurationDetails, interestPolicy)
+
         when:
-        account.setBalance(amount)
-        def closeDate = openDate.plusMonths(durationInMonths)
-        deposit = new Deposit(account, amount, openDate, depositType)
         deposit.closeDeposit(closeDate)
 
         then:
         assertThat(deposit.getBalance()).isZero()
-
-        where:
-        amount = 10.0
-        openDate = LocalDate.now()
-    }
-
-    def "deposit can be closed when exactly duration time passed"() {
-        when:
-        account.setBalance(amount)
-        def closeDate = openDate.plusMonths(durationInMonths)
-        deposit = new Deposit(account, amount, openDate, depositType)
-        deposit.closeDeposit(closeDate)
-
-        then:
-        assertThat(deposit.isOpen()).isFalse()
-
-        where:
-        amount = 10.0
-        openDate = LocalDate.now()
-    }
-
-    def "deposit can be closed when exactly duration time plus one day passed"() {
-        when:
-        account.setBalance(amount)
-        def closeDate = openDate.plusMonths(durationInMonths).plusDays(1)
-        deposit = new Deposit(account, amount, openDate, depositType)
-        deposit.closeDeposit(closeDate)
-
-        then:
-        assertThat(deposit.isOpen()).isFalse()
-
-        where:
-        amount = 10.0
-        openDate = LocalDate.now()
     }
 
     def "when deposit created it is open"() {
         when:
-        account.setBalance(amount)
-        deposit = new Deposit(account, amount, depositType)
+        deposit = new Deposit(account, depositPayment, depositDurationDetails, interestPolicy)
 
         then:
         assertThat(deposit.isOpen()).isTrue()
-
-        where:
-        amount = 10.0
     }
 
     def "deposit already closed can't be closed"() {
+        given:
+        def closeDate = depositPayment.getPaymentDate().plusMonths(durationInMonths)
+        deposit = new Deposit(account, depositPayment, depositDurationDetails, interestPolicy)
+
         when:
-        account.setBalance(amount)
-        def closeDate = openDate.plusMonths(durationInMonths)
-        deposit = new Deposit(account, amount, openDate, depositType)
         deposit.closeDeposit(closeDate)
-        deposit.closeDeposit(closeDate.plusDays(1))
+        deposit.closeDeposit(closeDate)
 
         then:
         assertThat(deposit.isOpen()).isFalse()
         RuntimeException ex = thrown()
         ex.message == ERROR_MESSAGE_CLOSE_DEPOSIT_ALREADY_CLOSED
-
-        where:
-        amount = 10.0
-        openDate = LocalDate.now()
     }
 
     def "when deposit created it returns correct close date"() {
+        given:
+        def closeDate = depositPayment.getPaymentDate().plusMonths(durationInMonths)
+
         when:
-        account.setBalance(amount)
-        deposit = new Deposit(account, amount, openDate, depositType)
-        def closeDate = openDate.plusMonths(6)
+        deposit = new Deposit(account, depositPayment, depositDurationDetails, interestPolicy)
 
         then:
         assertThat(deposit.getCloseDate()).isEqualTo(closeDate)
-
-        where:
-        amount = 10.0
-        openDate = LocalDate.now().plusDays(1)
-        depositType = new MonthlyDepositType(6, 5.0)
     }
 
-    def "when deposit created it returns correct deposit type"() {
+    def "when more than one payment deposit returns correct balance"() {
+        given:
+        def secondDepositPayment = new DepositPayment(25.0, LocalDate.now().plusMonths(1))
+        def secondInterestPolicy = new MonthlyInterestPolicy(12.0)
+
         when:
-        account.setBalance(amount)
-        deposit = new Deposit(account, amount, openDate, depositType)
+        deposit = new Deposit(account, depositPayment, depositDurationDetails, interestPolicy)
+        deposit.addPayment(secondDepositPayment, secondInterestPolicy)
 
         then:
-        assertThat(deposit.getDepositType()).isEqualTo(depositType)
-
-        where:
-        amount = 10.0
-        depositType = new MonthlyDepositType(6, 5.0)
+        assertThat(deposit.getBalance())
+                .isEqualByComparingTo(depositPayment.getPaymentAmount() + secondDepositPayment.getPaymentAmount())
     }
 
-    def "when deposit created it returns correct interest rate"() {
+    def "when more than one payment deposit returns correct list of payments"() {
+        given:
+        def secondDepositPayment = new DepositPayment(25.0, LocalDate.now().plusMonths(1))
+        def secondInterestPolicy = new MonthlyInterestPolicy(12.0)
+
         when:
-        account.setBalance(amount)
-        deposit = new Deposit(account, amount, openDate, depositType)
+        deposit = new Deposit(account, depositPayment, depositDurationDetails, interestPolicy)
+        deposit.addPayment(secondDepositPayment, secondInterestPolicy)
 
         then:
-        assertThat(deposit.yearlyInterestRatePercent).isEqualTo(5.0)
+        assertThat(deposit.getInterestRates())
+                .containsExactly(interestPolicy.getYearlyInterestRatePercent(),
+                secondInterestPolicy.getYearlyInterestRatePercent())
+    }
 
-        where:
-        amount = 10.0
-        depositType = new MonthlyDepositType(6, 5.0)
+    def "cannot add payment to closed deposit"() {
+        given:
+        def secondDepositPayment = new DepositPayment(25.0, LocalDate.now().plusMonths(1))
+        def secondInterestPolicy = new MonthlyInterestPolicy(12.0)
+        deposit = new Deposit(account, depositPayment, depositDurationDetails, interestPolicy)
+
+        when:
+        deposit.closeDeposit(LocalDate.now())
+        deposit.addPayment(secondDepositPayment, secondInterestPolicy)
+
+        then:
+        assertThat(deposit.isOpen()).isFalse()
+        RuntimeException ex = thrown()
+        ex.message == CANNOT_ADD_PAYMENT_TO_CLOSED_DEPOSIT
+    }
+
+    def "cannot add payment with date before open deposit date"() {
+        given:
+        def secondDepositPayment = new DepositPayment(amount, LocalDate.now().minusDays(1))
+        def secondInterestPolicy = new MonthlyInterestPolicy(12.0)
+        deposit = new Deposit(account, depositPayment, depositDurationDetails, interestPolicy)
+
+        when:
+        deposit.addPayment(secondDepositPayment, secondInterestPolicy)
+
+        then:
+        RuntimeException ex = thrown()
+        ex.message == PAYMENT_DATE_BEFORE_DEPOSIT_OPEN_DATE
     }
 
 }

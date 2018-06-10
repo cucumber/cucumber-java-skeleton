@@ -20,7 +20,7 @@ public class InMemoryBankProductsRepository implements BankProductsRepository {
     }
 
     @Override
-    public void addAccount (Account account){
+    public void addAccount(Account account) {
         Set<Account> customerAccounts = accountsMap.get(account.getOwner()) != null
                 ? accountsMap.get(account.getOwner()) : new HashSet<>();
         customerAccounts.add(account);
@@ -43,7 +43,7 @@ public class InMemoryBankProductsRepository implements BankProductsRepository {
     @Override
     public Set<Deposit> findDepositsForCustomer(Customer customer) {
         Set<Deposit> customersDeposits = new HashSet<>();
-        for (Account account : findAccountsForCustomer(customer)){
+        for (Account account : findAccountsForCustomer(customer)) {
             customersDeposits.addAll(depositsMap.getOrDefault(account, new HashSet<>()));
         }
         return customersDeposits;

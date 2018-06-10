@@ -2,10 +2,14 @@ package pl.edu.agh.iet.katabank;
 
 import pl.edu.agh.iet.katabank.bankproduct.Account;
 import pl.edu.agh.iet.katabank.bankproduct.Deposit;
-import pl.edu.agh.iet.katabank.bankproduct.deposittype.DepositType;
+import pl.edu.agh.iet.katabank.bankproduct.amount.DepositPayment;
+import pl.edu.agh.iet.katabank.bankproduct.amount.Payment;
+import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.DepositDurationDetails;
+import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.InterestPolicy;
 import pl.edu.agh.iet.katabank.repository.BankProductsRepository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Set;
 
 public class Bank {
@@ -50,8 +54,10 @@ public class Bank {
         return bankProductsRepository.findDepositsForCustomer(customer);
     }
 
-    public Deposit openDeposit (Customer customer, Account account, BigDecimal depositBalance, DepositType depositType){
+    public Deposit openDeposit(Customer customer, Account account, BigDecimal depositBalance, DepositDurationDetails durationDetails, InterestPolicy depositPolicy) {
         checkOperationNotAllowed(customer, account, ERROR_MESSAGE_OPEN_DEPOSIT);
-        return new Deposit(account, depositBalance, depositType);
+        account.withdraw(depositBalance);
+        Payment depositPayment = new DepositPayment(depositBalance, LocalDate.now());
+        return new Deposit(account, depositPayment, durationDetails, depositPolicy);
     }
 }

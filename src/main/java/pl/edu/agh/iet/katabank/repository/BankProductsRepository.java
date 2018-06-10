@@ -8,12 +8,12 @@ import java.util.Set;
 
 public interface BankProductsRepository {
 
-    void addAccount (Account account);
+    void addAccount(Account account);
 
-    Set<Account> findAccountsForCustomer (Customer customer);
+    Set<Account> findAccountsForCustomer(Customer customer);
 
-    void addDeposit (Deposit deposit);
+    void addDeposit(Deposit deposit);
 
-    Set<Deposit> findDepositsForCustomer (Customer customer);
+    Set<Deposit> findDepositsForCustomer(Customer customer);
 
 }
