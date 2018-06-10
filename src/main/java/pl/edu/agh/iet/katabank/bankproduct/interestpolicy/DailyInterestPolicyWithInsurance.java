@@ -32,7 +32,7 @@ public class DailyInterestPolicyWithInsurance implements InterestPolicy {
     }
 
     private int getDuration(LocalDate openDate, LocalDate actualClosingDate) {
-        return (int)(Duration.between(actualClosingDate, openDate).toDays());
+        return (int)((Duration.between(openDate.atStartOfDay(), actualClosingDate.atStartOfDay())).toDays());
     }
 
     @Override

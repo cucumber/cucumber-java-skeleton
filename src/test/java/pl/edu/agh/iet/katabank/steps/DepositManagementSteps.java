@@ -21,6 +21,7 @@ import java.util.Set;
 
 import static java.math.RoundingMode.HALF_DOWN;
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.edu.agh.iet.katabank.bankproduct.interestpolicy.DepositDurationDetails.DurationType.DAYS;
 import static pl.edu.agh.iet.katabank.bankproduct.interestpolicy.DepositDurationDetails.DurationType.MONTHS;
 
 public class DepositManagementSteps implements En {
@@ -146,7 +147,7 @@ public class DepositManagementSteps implements En {
 
         And("^he decided to add the insurance to the deposit$", () -> {
             interestPolicy = new DailyInterestPolicyWithInsurance(new BigDecimal(10), new BigDecimal(0.05));
-            durationDetails = new DepositDurationDetails(6, MONTHS);
+            durationDetails = new DepositDurationDetails(180, DAYS);
         });
 
         When("^he opens a deposit$", () -> {
@@ -154,7 +155,6 @@ public class DepositManagementSteps implements En {
         });
 
         Then("^the deposited amount is (.+)% lower than the original amount$", (String insuranceCostPercent) -> {
-
             assertThat(deposit.getBalance()).isEqualByComparingTo(amount.subtract(amount.multiply(new BigDecimal(insuranceCostPercent).divide(new BigDecimal(100), 10, HALF_DOWN ))));
         });
 

@@ -27,7 +27,7 @@ Feature: Bank Management - Deposit
     Then the interest rate for these funds is 0.5% greater than the original interest rate
     And the interest for this funds is proportional to the deposit time left and equals 217.87
 
-  Scenario: Deposit insurance -  cost
+  Scenario: Deposit insurance - cost
     Given there is a customer who is about to open a new deposit of any kind
     And he decided to add the insurance to the deposit
     When he opens a deposit
