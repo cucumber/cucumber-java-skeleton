@@ -1,6 +1,5 @@
 package pl.edu.agh.iet.katabank.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import pl.edu.agh.iet.katabank.Bank;
 import pl.edu.agh.iet.katabank.Customer;
@@ -8,6 +7,7 @@ import pl.edu.agh.iet.katabank.bankproduct.Account;
 import pl.edu.agh.iet.katabank.bankproduct.Deposit;
 import pl.edu.agh.iet.katabank.bankproduct.amount.DepositPayment;
 import pl.edu.agh.iet.katabank.bankproduct.amount.Payment;
+import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.DailyInterestPolicyWithInsurance;
 import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.DepositDurationDetails;
 import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.InterestPolicy;
 import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.MonthlyInterestPolicy;
@@ -145,7 +145,7 @@ public class DepositManagementSteps implements En {
         });
 
         And("^he decided to add the insurance to the deposit$", () -> {
-            interestPolicy = new DailyInterestPolicyWithInsurance (new BigDecimal(10));
+            interestPolicy = new DailyInterestPolicyWithInsurance(new BigDecimal(10), new BigDecimal(0.05));
             durationDetails = new DepositDurationDetails(6, MONTHS);
         });
 

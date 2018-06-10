@@ -27,6 +27,9 @@ public class MonthlyInterestPolicy implements InterestPolicy {
         return (amount.multiply(calculateInterestRateMultiplier(depositDuration))).setScale(MONEY_SCALE, ROUNDING_MODE);
     }
 
+    @Override
+    public BigDecimal preProcessAmount(BigDecimal amount) { return amount; }
+
     private BigDecimal calculateInterestRateMultiplier(int duration) {
         return yearlyInterestRatePercent.divide(ONE_HUNDRED_PERCENT, CALCULATION_SCALE, ROUNDING_MODE)
                 .multiply(new BigDecimal(duration).divide(TWELVE_MONTHS, CALCULATION_SCALE, ROUNDING_MODE));
