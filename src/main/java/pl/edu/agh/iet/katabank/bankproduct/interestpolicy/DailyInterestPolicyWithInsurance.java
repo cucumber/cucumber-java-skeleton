@@ -37,6 +37,7 @@ public class DailyInterestPolicyWithInsurance implements InterestPolicy {
 
     @Override
     public BigDecimal preProcessAmount(BigDecimal amount) {
-        return amount.subtract(amount.multiply(this.insuranceCostPercent).divide(ONE_HUNDRED_PERCENT, CALCULATION_SCALE, ROUNDING_MODE));
+        return amount.subtract(amount.multiply(this.insuranceCostPercent)
+                .divide(ONE_HUNDRED_PERCENT, CALCULATION_SCALE, ROUNDING_MODE));
     }
 }

@@ -51,5 +51,4 @@ class DailyInterestPolicyWithInsuranceTest extends Specification {
                 .setScale(2, RoundingMode.HALF_DOWN))
     }
 
-
 }
