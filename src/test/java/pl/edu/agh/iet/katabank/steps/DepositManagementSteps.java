@@ -1,5 +1,6 @@
 package pl.edu.agh.iet.katabank.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import pl.edu.agh.iet.katabank.Bank;
 import pl.edu.agh.iet.katabank.Customer;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+import static java.math.RoundingMode.HALF_DOWN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.edu.agh.iet.katabank.bankproduct.interestpolicy.DepositDurationDetails.DurationType.MONTHS;
 
@@ -135,6 +137,25 @@ public class DepositManagementSteps implements En {
         And("^the interest for this funds is proportional to the deposit time left and equals (.+)$", (String balanceWithInterest) -> {
             deposit.closeDeposit(deposit.getCloseDate());
             assertThat(account.getBalance()).isEqualByComparingTo(new BigDecimal(balanceWithInterest));
+        });
+
+        Given("^there is a customer who is about to open a new deposit of any kind$", () -> {
+            amount = new BigDecimal(1000);
+            account.setBalance(amount);
+        });
+
+        And("^he decided to add the insurance to the deposit$", () -> {
+            interestPolicy = new DailyInterestPolicyWithInsurance (new BigDecimal(10));
+            durationDetails = new DepositDurationDetails(6, MONTHS);
+        });
+
+        When("^he opens a deposit$", () -> {
+            deposit = bank.openDeposit(customer, account, amount, durationDetails, interestPolicy);
+        });
+
+        Then("^the deposited amount is (.+)% lower than the original amount$", (String insuranceCostPercent) -> {
+
+            assertThat(deposit.getBalance()).isEqualByComparingTo(amount.subtract(amount.multiply(new BigDecimal(insuranceCostPercent).divide(new BigDecimal(100), 10, HALF_DOWN ))));
         });
 
 

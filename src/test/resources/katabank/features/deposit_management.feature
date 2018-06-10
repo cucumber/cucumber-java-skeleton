@@ -26,3 +26,9 @@ Feature: Bank Management - Deposit
     When after 3 months he transfers new funds of amount 100 to the existing deposit with interest higher by 0.5%
     Then the interest rate for these funds is 0.5% greater than the original interest rate
     And the interest for this funds is proportional to the deposit time left and equals 217.87
+
+  Scenario: Deposit insurance -  cost
+    Given there is a customer who is about to open a new deposit of any kind
+    And he decided to add the insurance to the deposit
+    When he opens a deposit
+    Then the deposited amount is 0.05% lower than the original amount
