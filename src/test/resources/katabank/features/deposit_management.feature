@@ -37,4 +37,4 @@ Feature: Bank Management - Deposit
       Given there is a customer with an account with 1000 balance 
       And  he decided to open a deposit with all the money for period of 100 days with interest rate of 10% and he decided to add the insurance, that costs 0.05% to the deposit
       When he decides to do an early withdrawal after 50 days
-      Then he does not lose any accumulated interest
+      Then he does not lose any accumulated interest, and the account balance after closing the deposit is 1013.19

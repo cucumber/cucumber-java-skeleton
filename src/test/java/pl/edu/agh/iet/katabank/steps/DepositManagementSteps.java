@@ -17,10 +17,8 @@ import pl.edu.agh.iet.katabank.repository.InMemoryBankProductsRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Duration;
 import java.util.List;
 import java.util.Set;
-
 
 import static java.math.RoundingMode.HALF_DOWN;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -179,15 +177,8 @@ public class DepositManagementSteps implements En {
             deposit.closeDeposit(withdrawalDate);
         });
 
-        Then("^he does not lose any accumulated interest$", () -> {
-            assertThat(account.getBalance())
-                    .isEqualByComparingTo
-                            (depositedAmount.add(
-                                    depositedAmount
-                                            .multiply(deposit.getInterestRates().get(0))
-                                            .divide(InterestPolicy.ONE_HUNDRED_PERCENT, InterestPolicy.CALCULATION_SCALE, InterestPolicy.ROUNDING_MODE)
-                                            .multiply(new BigDecimal((int) (Duration.between(deposit.getOpenDate().atStartOfDay(), withdrawalDate.atStartOfDay())).toDays()))
-                                            .divide(InterestPolicy.DAYS_IN_YEAR, InterestPolicy.CALCULATION_SCALE, InterestPolicy.ROUNDING_MODE)));
+        Then("^he does not lose any accumulated interest, and the account balance after closing the deposit is (.+)$", (String finalBalance) -> {
+            assertThat(account.getBalance()).isEqualByComparingTo(finalBalance);
         });
 
 
