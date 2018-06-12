@@ -10,6 +10,7 @@ public interface InterestPolicy {
 
     BigDecimal ONE_HUNDRED_PERCENT = new BigDecimal(100);
     BigDecimal TWELVE_MONTHS = new BigDecimal(12);
+    BigDecimal DAYS_IN_YEAR = new BigDecimal(365);
     int MONEY_SCALE = 2;
     int CALCULATION_SCALE = 10;
     RoundingMode ROUNDING_MODE = HALF_DOWN;
@@ -17,4 +18,6 @@ public interface InterestPolicy {
     BigDecimal getYearlyInterestRatePercent();
 
     BigDecimal calculateInterest(BigDecimal amount, LocalDate openDate, LocalDate calculationDate, LocalDate plannedTerminationDate);
+
+    BigDecimal preProcessAmount(BigDecimal amount);
 }

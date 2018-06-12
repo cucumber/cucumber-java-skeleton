@@ -1,5 +1,6 @@
 package pl.edu.agh.iet.katabank.steps;
 
+
 import cucumber.api.java8.En;
 import pl.edu.agh.iet.katabank.Bank;
 import pl.edu.agh.iet.katabank.Customer;
@@ -7,6 +8,7 @@ import pl.edu.agh.iet.katabank.bankproduct.Account;
 import pl.edu.agh.iet.katabank.bankproduct.Deposit;
 import pl.edu.agh.iet.katabank.bankproduct.amount.DepositPayment;
 import pl.edu.agh.iet.katabank.bankproduct.amount.Payment;
+import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.DailyInterestPolicyWithInsurance;
 import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.DepositDurationDetails;
 import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.InterestPolicy;
 import pl.edu.agh.iet.katabank.bankproduct.interestpolicy.MonthlyInterestPolicy;
@@ -18,7 +20,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+import static java.math.RoundingMode.HALF_DOWN;
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.edu.agh.iet.katabank.bankproduct.interestpolicy.DepositDurationDetails.DurationType.DAYS;
 import static pl.edu.agh.iet.katabank.bankproduct.interestpolicy.DepositDurationDetails.DurationType.MONTHS;
 
 public class DepositManagementSteps implements En {
@@ -135,6 +139,21 @@ public class DepositManagementSteps implements En {
         And("^the interest for this funds is proportional to the deposit time left and equals (.+)$", (String balanceWithInterest) -> {
             deposit.closeDeposit(deposit.getCloseDate());
             assertThat(account.getBalance()).isEqualByComparingTo(new BigDecimal(balanceWithInterest));
+        });
+
+        Given("^there is a customer who is about to open a new deposit of any kind$", () -> {
+            amount = new BigDecimal(1000);
+            account.setBalance(amount);
+        });
+        And("^he decided to add the insurance to the deposit, the deposit cost is (.+)% of thr amount$", (String insuranceCostPercent) -> {
+            interestPolicy = new DailyInterestPolicyWithInsurance(new BigDecimal(10), new BigDecimal(insuranceCostPercent));
+            durationDetails = new DepositDurationDetails(180, DAYS);
+        });
+        When("^he opens a deposit$", () -> {
+            deposit = bank.openDeposit(customer, account, amount, durationDetails, interestPolicy);
+        });
+        Then("^the deposited amount is (.+)% lower than the original amount$", (String insuranceCostPercent) -> {
+            assertThat(deposit.getBalance()).isEqualByComparingTo(amount.subtract(amount.multiply(new BigDecimal(insuranceCostPercent).divide(new BigDecimal(100), 10, HALF_DOWN))));
         });
 
 
