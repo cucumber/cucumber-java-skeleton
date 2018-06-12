@@ -32,3 +32,9 @@ Feature: Bank Management - Deposit
     And he decided to add the insurance to the deposit, the deposit cost is 0.05% of thr amount
     When he opens a deposit
     Then the deposited amount is 0.05% lower than the original amount
+
+    Scenario: Deposit insurance - early withdrawal
+      Given there is a customer with an account with 1000 balance 
+      And  he decided to open a deposit with all the money for period of 100 days with interest rate of 10% and he decided to add the insurance, that costs 0.05% to the deposit
+      When he decides to do an early withdrawal after 50 days
+      Then he does not lose any accumulated interest
