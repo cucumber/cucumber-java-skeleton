@@ -1,4 +1,4 @@
-package skeleton;
+package io.cucumber.skeleton;
 
 import cucumber.api.java.en.Given;
 
