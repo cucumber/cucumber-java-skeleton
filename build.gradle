@@ -5,8 +5,8 @@ project.ext {
 }
 
 dependencies {
-    testCompile 'io.cucumber:cucumber-java:' + cucumberVersion
-    testCompile 'io.cucumber:cucumber-junit:' + cucumberVersion
+    testImplementation 'io.cucumber:cucumber-java:' + cucumberVersion
+    testImplementation 'io.cucumber:cucumber-junit:' + cucumberVersion
 }
 
 repositories {
