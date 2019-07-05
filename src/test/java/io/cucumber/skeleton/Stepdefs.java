@@ -1,6 +1,6 @@
 package io.cucumber.skeleton;
 
-import cucumber.api.java.en.Given;
+import io.cucumber.java.en.Given;
 
 public class Stepdefs {
     @Given("^I have (\\d+) cukes in my belly$")
