@@ -10,7 +10,7 @@ default:
 update-cucumber-version:
 	set -e
 	./mvnw versions:update-properties -DincludeProperties="cucumber.version"
-	export NEW_VERSION=$(shell mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=cucumber.version -q -DforceStdout 2> /dev/null)
+	export NEW_VERSION=$$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=cucumber.version -q -DforceStdout 2> /dev/null)
 	sed -i "s/cucumberVersion = '.*'/cucumberVersion = '$$NEW_VERSION'/g" build.gradle
 	./mvnw test
 	./gradlew test --rerun-tasks --info
