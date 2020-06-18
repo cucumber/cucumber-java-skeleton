@@ -12,7 +12,7 @@ update-cucumber-version:
 	./mvnw versions:update-properties -DincludeProperties="cucumber.version"
 	export NEW_VERSION=$$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=cucumber.version -q -DforceStdout 2> /dev/null)
 	sed -i "s/cucumberVersion = '.*'/cucumberVersion = '$$NEW_VERSION'/g" build.gradle
-	./mvnw test
+	./mvnw test  -Dmaven.test.failure.ignore
 	./gradlew test --rerun-tasks --info
 	git commit -am "Upgrade to Cucumber-JVM v$$NEW_VERSION"
 	git tag "v$$NEW_VERSION"
