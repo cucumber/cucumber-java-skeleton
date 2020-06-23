@@ -1,6 +1,6 @@
 # Cucumber-Java Skeleton
 
-[![Build Status](https://travis-ci.org/cucumber/cucumber-java-skeleton.svg?branch=master)](https://travis-ci.org/cucumber/cucumber-java-skeleton)
+[![Build Status](https://travis-ci.org/cucumber/cucumber-java-skeleton.svg?branch=main)](https://travis-ci.org/cucumber/cucumber-java-skeleton)
 
 This is the simplest possible build script setup for Cucumber using Java.
 There is nothing fancy like a webapp or browser testing. All this does is to show you how
@@ -20,7 +20,7 @@ Subversion:
     svn checkout https://github.com/cucumber/cucumber-java-skeleton/trunk cucumber-java-skeleton
     cd cucumber-java-skeleton
 
-Or simply [download a zip](https://github.com/cucumber/cucumber-java-skeleton/archive/master.zip) file.
+Or simply [download a zip](https://github.com/cucumber/cucumber-java-skeleton/archive/main.zip) file.
 
 ## Use Maven
 
