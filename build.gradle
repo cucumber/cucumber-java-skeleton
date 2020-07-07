@@ -1,12 +1,8 @@
 apply plugin: 'java'
 
-project.ext {
-    cucumberVersion = '6.1.1'
-}
-
 dependencies {
-    testImplementation 'io.cucumber:cucumber-java:' + cucumberVersion
-    testImplementation 'io.cucumber:cucumber-junit:' + cucumberVersion
+    testImplementation 'io.cucumber:cucumber-java:6.1.1'
+    testImplementation 'io.cucumber:cucumber-junit:6.1.1'
 }
 
 repositories {
