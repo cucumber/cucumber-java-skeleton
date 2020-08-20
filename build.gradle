@@ -1,8 +1,8 @@
 apply plugin: 'java'
 
 dependencies {
-    testImplementation 'io.cucumber:cucumber-java:6.5.0'
-    testImplementation 'io.cucumber:cucumber-junit:6.5.0'
+    testImplementation 'io.cucumber:cucumber-java:6.5.1'
+    testImplementation 'io.cucumber:cucumber-junit:6.5.1'
 }
 
 repositories {
