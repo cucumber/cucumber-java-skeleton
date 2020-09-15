@@ -80,7 +80,7 @@ In case you have many feature files or scenarios to run against, separate them w
 
 You can also specify what to run by *tag*:
 
-    -Dcucumber.filter.tags="--tags @bar"
+    -Dcucumber.filter.tags="@bar"
 
 ### Running only the scenarios that failed in the previous run
 
