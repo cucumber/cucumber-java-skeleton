@@ -25,7 +25,7 @@ jobs:
           version: '11'
       - name: test maven
         run: ./mvnw test -Dmaven.test.failure.ignore
-      - run: grep -q "The step \"I wait 1 hour\" is undefined." target/surefire-reports/io.cucumber.skeleton.RunCucumberTest.txt || ( echo "mvn test didn't fail as expected" && false )
+      - run: grep -q "The step 'I wait 1 hour' is undefined." target/surefire-reports/io.cucumber.skeleton.RunCucumberTest.txt || ( echo "mvn test didn't fail as expected" && false )
       - name: test gradle
         run: ./gradlew test || true
       - run: grep -q "The step &quot;I wait 1 hour&quot; is undefined." build/reports/tests/test/classes/Belly.html  || ( echo "gradle test didn't fail as expected" && false )
