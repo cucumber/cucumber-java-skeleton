@@ -1,0 +1,31 @@
+name: Cucumber CI
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: build-${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            build-${{ runner.os }}-maven-
+      - uses:
+          AdoptOpenJDK/install-jdk@v1
+        with:
+          version: '11'
+      - name: test maven
+        run: ./mvnw test -Dmaven.test.failure.ignore
+      - run: grep -q "The step \"I wait 1 hour\" is undefined." target/surefire-reports/io.cucumber.skeleton.RunCucumberTest.txt || ( echo "mvn test didn't fail as expected" && false )
+      - name: test gradle
+        run: ./gradlew test || true
+      - run: grep -q "The step &quot;I wait 1 hour&quot; is undefined." build/reports/tests/test/classes/Belly.html  || ( echo "gradle test didn't fail as expected" && false )
