@@ -2,7 +2,7 @@ apply plugin: 'java'
 
 dependencies {
     testImplementation 'io.cucumber:cucumber-java:6.10.4'
-    testImplementation 'io.cucumber:cucumber-junit:6.10.4'
+    testImplementation 'io.cucumber:cucumber-junit:7.0.0'
 }
 
 repositories {
