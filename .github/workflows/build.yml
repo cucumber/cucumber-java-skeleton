@@ -28,4 +28,4 @@ jobs:
       - run: grep -q "The step 'I wait 1 hour' and 1 other step(s) are undefined." target/surefire-reports/io.cucumber.skeleton.RunCucumberTest.txt || ( echo "mvn test didn't fail as expected" && false )
       - name: test gradle
         run: ./gradlew test || true
-      - run: grep -q "The step 'I wait 1 hour' and 1 other step(s) are undefined." build/test-results/test/TEST-Belly.xml  || ( echo "gradle test didn't fail as expected" && false )
+      - run: grep -q "The step 'I wait 1 hour' and 1 other step(s) are undefined." build/reports/tests/test/classes/io.cucumber.skeleton.RunCucumberTest.html  || ( echo "gradle test didn't fail as expected" && false )
