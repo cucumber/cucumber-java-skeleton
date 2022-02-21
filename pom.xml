@@ -84,6 +84,7 @@
                             cucumber.junit-platform.naming-strategy=long
                         </configurationParameters>
                     </properties>
+                	<forkCount>1.5C</forkCount>
                 </configuration>
             </plugin>
         </plugins>
