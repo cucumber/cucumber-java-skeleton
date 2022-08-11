@@ -25,6 +25,7 @@ Or [download a zip](https://github.com/cucumber/cucumber-java-skeleton/archive/m
 
 Open a command window and run:
 
+    cd maven
     ./mvnw test
 
 This runs Cucumber features using Cucumber's JUnit Platform Engine. The `Suite`
@@ -34,7 +35,8 @@ annotation on the `RunCucumberTest` class tells JUnit to kick off Cucumber.
 
 Open a command window and run:
 
-     ./gradlew test --rerun-tasks --info
+    cd gradle
+    ./gradlew test --rerun-tasks --info
 
 This runs Cucumber features using Cucumber's JUnit Platform Engine. The `Suite`
 annotation on the `RunCucumberTest` class tells JUnit to kick off Cucumber.
@@ -52,7 +54,7 @@ For available parameters see: `io.cucumber.junit.platform.engine.Constants`
 
 Specify a particular scenario by *line*
 
-    @SelectClasspathResource(value = "io/cucumber/skeleton/belly.feature", column = 3)
+    @SelectClasspathResource(value = "io/cucumber/skeleton/belly.feature", line = 3)
 
 In case you have multiple feature files or scenarios to run against repeat the
 annotation.
