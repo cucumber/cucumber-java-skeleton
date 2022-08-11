@@ -24,8 +24,14 @@ jobs:
         with:
           version: '11'
       - name: test maven
-        run: ./mvnw test -Dmaven.test.failure.ignore
-      - run: grep -q "The step 'I wait 1 hour' and 1 other step(s) are undefined." target/surefire-reports/io.cucumber.skeleton.RunCucumberTest.txt || ( echo "mvn test didn't fail as expected" && false )
+        run: |
+          cd maven
+          ./mvnw test -Dmaven.test.failure.ignore
+      - run: grep -q "The step 'I wait 1 hour' and 1 other step(s) are undefined." maven/target/surefire-reports/io.cucumber.skeleton.RunCucumberTest.txt || ( echo "mvn test didn't fail as expected" && false )
       - name: test gradle
-        run: ./gradlew test || true
-      - run: grep -q "The step 'I wait 1 hour' and 1 other step(s) are undefined." build/reports/tests/test/classes/io.cucumber.skeleton.RunCucumberTest.html  || ( echo "gradle test didn't fail as expected" && false )
+        run: |
+          cd gradle
+          ./gradlew test || true
+      - run: grep -q "The step 'I wait 1 hour' and 1 other step(s) are undefined." gradle/build/reports/tests/test/classes/io.cucumber.skeleton.RunCucumberTest.html  || ( echo "gradle test didn't fail as expected" && false )
+      - name: compare gradle and maven sources
+        run: diff gradle/src maven/src
