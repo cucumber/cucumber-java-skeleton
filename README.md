@@ -62,3 +62,25 @@ annotation.
 You can also specify what to run by *tag*:
 
     @IncludeTags("zucchini")
+
+## Running a single scenario or feature
+
+Maven and Gradle do not (yet) support selecting single features or scenarios
+with JUnit selectors. As a work around the `cucumber.features` property can be
+used. Because this property will cause Cucumber to ignore any other selectors
+from JUnit it is prudent to only execute the Cucumber engine.
+
+### With Maven
+
+To select the scenario on line 3 of the `belly.feature` file use:
+
+```
+./mvnw test -Dsurefire.includeJUnit5Engines=cucumber -Dcucumber.plugin=pretty -Dcucumber.features=src/test/resources/io/cucumber/skeleton/belly.feature:3 
+```
+
+Note: Add `-Dcucumber.plugin=pretty` to get test reports. Maven does not report
+tests without a class.
+
+### With Gradle
+
+TODO: (Feel free to send a pull request. ;))
