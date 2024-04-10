@@ -41,10 +41,10 @@ Open a command window and run:
 This runs Cucumber features using Cucumber's JUnit Platform Engine. The `Suite`
 annotation on the `RunCucumberTest` class tells JUnit to kick off Cucumber.
 
-## Overriding options
+## Configuration 
 
-The Cucumber runtime uses configuration parameters to know what features to run,
-where the glue code lives, what plugins to use etc. When using JUnit, these
+The [Cucumber JUnit Platform Engine](https://github.com/cucumber/cucumber-jvm/tree/main/cucumber-junit-platform-engine) uses configuration parameters to know what features to run,
+where the glue code lives, what plugins to use, etc. When using JUnit, these
 configuration parameters are provided through the `@ConfigurationParameter`
 annotation on your test.
 
