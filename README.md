@@ -75,12 +75,11 @@ from JUnit it is prudent to only execute the Cucumber engine.
 To select the scenario on line 3 of the `belly.feature` file use:
 
 ```
-./mvnw test -Dsurefire.includeJUnit5Engines=cucumber -Dcucumber.plugin=pretty -Dcucumber.features=src/test/resources/io/cucumber/skeleton/belly.feature:3 
+./mvnw test -Dsurefire.includeJUnit5Engines=cucumber -Dcucumber.features=src/test/resources/io/cucumber/skeleton/belly.feature:3 
 ```
 
-Note: Add `-Dcucumber.plugin=pretty` to get test reports. Maven does not report
-tests without a class.
+Note: Add `-Dcucumber.plugin=pretty` to get a more detailed output during test execution.
 
 ### With Gradle
 
-TODO: (Feel free to send a pull request. ;))
+TODO: (I don't know how to do this. Feel free to send a pull request. ;))
