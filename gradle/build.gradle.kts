@@ -3,7 +3,7 @@ plugins {
 }
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.3"))
-    testImplementation(platform("io.cucumber:cucumber-bom:7.18.0"))
+    testImplementation(platform("io.cucumber:cucumber-bom:7.18.1"))
 
     testImplementation("io.cucumber:cucumber-java")
     testImplementation("io.cucumber:cucumber-junit-platform-engine")
