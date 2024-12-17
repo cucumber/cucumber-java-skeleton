@@ -63,6 +63,14 @@ You can also specify what to run by *tag*:
 
     @IncludeTags("zucchini")
 
+When using Maven, tags can be provided from the CLI using the `groups` and `excludedGroups` parameters. These take a
+[JUnit5 Tag Expression](https://junit.org/junit5/docs/current/user-guide/#running-tests-tag-expressions). 
+Note: When using JUnit, the `@` is not part of the tag.
+
+```
+mvn verify -DexcludedGroups="Haricots" -Dgroups="Zucchini | Gherkin"
+```
+
 ## Running a single scenario or feature
 
 Maven and Gradle do not (yet) support selecting single features or scenarios
