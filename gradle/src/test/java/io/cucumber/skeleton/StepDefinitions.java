@@ -1,6 +1,7 @@
 package io.cucumber.skeleton;
 
 import io.cucumber.java.en.Given;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class StepDefinitions {
     @Given("I have {int} cukes in my belly")
