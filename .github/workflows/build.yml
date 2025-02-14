@@ -22,7 +22,7 @@ jobs:
       - uses:
           AdoptOpenJDK/install-jdk@v1
         with:
-          version: '11'
+          version: '17'
       - name: test maven
         run: |
           cd maven
