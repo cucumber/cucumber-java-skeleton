@@ -10,6 +10,8 @@ dependencies {
     testImplementation("io.cucumber:cucumber-junit-platform-engine")
     testImplementation("org.junit.platform:junit-platform-suite")
     testImplementation("org.assertj:assertj-core")
+
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 repositories {
