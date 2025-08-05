@@ -1,5 +1,2 @@
-.idea
-*.iml
-
 target/
 *.versionsBackup

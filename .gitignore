@@ -1,2 +1,8 @@
+# InteliJ IDEA
 .idea
 *.iml
+
+# Eclipse IDE
+.settings
+.classpath
+.project
